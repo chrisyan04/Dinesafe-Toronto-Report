@@ -13,4 +13,6 @@ Hello World
 ```{r}
 m = "Hello World"
 m
+m = "World Hello"
+m
 ```
