@@ -14,6 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 data <- read.csv("Dinesafe.csv")
 ```
 The report concerns with the data "Dinesafe" produced by the Toronto Public Health’s food safety program that inspects all establishments serving and preparing food. Each inspection results in a pass, a conditional pass or a closed notice.
-```{r, echo=FALSE}
-
-```
+\
+\
+**Purpose:** The purpose of this report is to study the ...
