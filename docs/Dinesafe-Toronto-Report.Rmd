@@ -1,6 +1,6 @@
 ---
 title: "Dinesafe-Toronto-Report"
-author: "Chris Yan 1009096746"
+author: "Chris Yan 1009096746, Aaron Dong 1009096746"
 date: "2023-03-29"
 output: html_document
 ---
@@ -9,10 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Hello World
-```{r}
-m = "Hello World"
-m = "We are screwed for this project!"
-m = "World Hello"
-m
+```{r, echo=FALSE}
+# Importing the dataset
+data <- read.csv("Dinesafe.csv")
 ```
+
