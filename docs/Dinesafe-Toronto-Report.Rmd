@@ -11,9 +11,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, echo=FALSE}
 # Importing the dataset
-data <- read.csv("Dinesafe.csv")
+o_data <- read.csv("Dinesafe.csv")
+# Initiating libraries
+library(tidyverse)
+library(ggplot2)
+library(ggmap)
+citation("ggmap")
 ```
 The report concerns with the data "Dinesafe" produced by the Toronto Public Health’s food safety program that inspects all establishments serving and preparing food. Each inspection results in a pass, a conditional pass or a closed notice.
 \
 \
 **Purpose:** The purpose of this report is to study the ...
+
+```{r, echo=FALSE}
+o_data = o_data %>% mutate(Open.Status = case_when(Establishment.Status == "Pass" ~ 1,
+                                     Establishment.Status == "Closed"~ -1,
+                                     TRUE ~ 0))
+o_data %>% mutate(Map.Plotting = case_when(Open.Status == 1 ~ "high",
+                                           Open.Status == 0 ~ "mid",
+                                           Open.Status == -1 ~ "low"))
+ggplot(o_data,aes(y=Latitude,x=Longitude,color=Open.Status))+geom_point(alpha = 0.05)+
+  scale_color_gradient2(high = "darkgreen", mid = "yellow",
+                        low = "red", space = "Lab")
+```
