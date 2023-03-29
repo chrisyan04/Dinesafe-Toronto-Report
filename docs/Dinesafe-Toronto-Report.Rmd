@@ -16,6 +16,9 @@ o_data <- read.csv("Dinesafe.csv")
 library(tidyverse)
 library(ggplot2)
 library(ggmap)
+library(png)
+library(ggpubr)
+library(osmdata)
 citation("ggmap")
 ```
 The report concerns with the data "Dinesafe" produced by the Toronto Public Health’s food safety program that inspects all establishments serving and preparing food. Each inspection results in a pass, a conditional pass or a closed notice.
@@ -30,7 +33,16 @@ o_data = o_data %>% mutate(Open.Status = case_when(Establishment.Status == "Pass
 o_data %>% mutate(Map.Plotting = case_when(Open.Status == 1 ~ "high",
                                            Open.Status == 0 ~ "mid",
                                            Open.Status == -1 ~ "low"))
-ggplot(o_data,aes(y=Latitude,x=Longitude,color=Open.Status))+geom_point(alpha = 0.05)+
+
+img <- readPNG("toronto-map.png")
+
+ggplot(o_data,aes(y=Latitude,x=Longitude,color=Open.Status))+background_image(img)+geom_point(alpha = 0.05)+
   scale_color_gradient2(high = "darkgreen", mid = "yellow",
                         low = "red", space = "Lab")
+
+### With ggmap
+toronto_map <- get_map(getbb('toronto'), source="stamen")
+ggmap(toronto_map)
+#toronto_map+geom_point(o_data,aes(y=Latitude,x=Longitude))
+###
 ```
