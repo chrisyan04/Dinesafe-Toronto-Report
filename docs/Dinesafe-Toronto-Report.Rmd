@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, echo=FALSE}
 # Importing the dataset
-o_data <- read.csv("Dinesafe.csv")
+o_data <- read.csv("bicycle.csv")
 # Initiating libraries
 library(tidyverse)
 library(ggplot2)
