@@ -21,7 +21,7 @@ library(ggpubr)
 library(osmdata)
 citation("ggmap")
 ```
-The report concerns with the data "Dinesafe" produced by the Toronto Public Health’s food safety program that inspects all establishments serving and preparing food. Each inspection results in a pass, a conditional pass or a closed notice.
+The report concerns with the data "Bicycle Thefts Open Data" which containes occurrences related to bicycle thefts reported to the Toronto Police Service. These occurrences are related to a variety of offences where the theft of a bicycle was included.
 \
 \
 **Purpose:** The purpose of this report is to study the ...
