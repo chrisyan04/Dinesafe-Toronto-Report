@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, echo=FALSE}
 # Importing the dataset
-o_data <- read.csv("bicycle.csv")
+origin <- read.csv("bicycle.csv")
 # Initiating libraries
 library(tidyverse)
 library(ggplot2)
@@ -27,22 +27,6 @@ The report concerns with the data "Bicycle Thefts Open Data" which containes occ
 **Purpose:** The purpose of this report is to study the ...
 
 ```{r, echo=FALSE}
-o_data = o_data %>% mutate(Open.Status = case_when(Establishment.Status == "Pass" ~ 1,
-                                     Establishment.Status == "Closed"~ -1,
-                                     TRUE ~ 0))
-o_data %>% mutate(Map.Plotting = case_when(Open.Status == 1 ~ "high",
-                                           Open.Status == 0 ~ "mid",
-                                           Open.Status == -1 ~ "low"))
-
-img <- readPNG("toronto-map.png")
-
-ggplot(o_data,aes(y=Latitude,x=Longitude,color=Open.Status))+background_image(img)+geom_point(alpha = 0.05)+
-  scale_color_gradient2(high = "darkgreen", mid = "yellow",
-                        low = "red", space = "Lab")
-
-### With ggmap
-toronto_map <- get_map(getbb('toronto'), source="stamen")
-ggmap(toronto_map)
-#toronto_map+geom_point(o_data,aes(y=Latitude,x=Longitude))
-###
+#omit all the entries that has NA inputs, they won't be helpful to our data
+data <- na.omit(origin)
 ```
