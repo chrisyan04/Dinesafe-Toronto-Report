@@ -147,8 +147,6 @@ print(summary)
 
 We can see that there are some outliers from 2009-2013, in addition, the 2022 data is not complete.
 Therefore, Let's filter them out and obtain a complete set of data, the one we will be using for our report below.
-```{r}
 
 
 
-```
