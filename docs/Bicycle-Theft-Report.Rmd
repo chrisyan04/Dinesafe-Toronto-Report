@@ -130,9 +130,10 @@ glimpse(origin)
 * __coordinates of bike stolen named Geometry__
   * precise location of the crime location
   * _string_
-\
-\
-**Purpose:** The purpose of this report is to study the ...
+
+### Purpose
+
+The purpose of our report is to inform the public about the bike safety concerns in Toronto and its surrounding areas with regards to the precedence of stolen bikes in certain areas. We want to make it known in our report that the public should avoid parking bikes in hot-spots where bikes are often stolen. A map of the density of the stolen bike occurrences will show the precise locations where one should avoid leaving their bike. With our research we hope to provide a thorough investigation into these hot-spots and also provide such information of stolen bike occurences to the Toronto Police.
 
 If we look at the data we see that there are NAs in certain places of the dataset.
 So let's remove those by omitting them.
