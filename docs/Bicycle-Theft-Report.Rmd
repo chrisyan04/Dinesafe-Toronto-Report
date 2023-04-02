@@ -1,7 +1,8 @@
 ---
-title: "Bicycle-Theft-Report"
+title: "Bicycle Theft Report"
+subtitle: "What is the scope of bike theft in Toronto over the past few years?"
 author: "Chris Yan 1009096746, Aaron Dong 1008961232, Armaan Rehman Shah 1009641309"
-date: "2023-03-29"
+date: "2023-04-07"
 output: html_document
 ---
 
