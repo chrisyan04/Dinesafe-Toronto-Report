@@ -363,53 +363,177 @@ Rehman Shah 1009641309</h4>
 <p>The report concerns with the data “Bicycle Thefts Open Data” which
 contains occurrences related to bicycle thefts reported to the Toronto
 Police Service. These occurrences are related to a variety of offences
-where the theft of a bicycle was included.</p>
+where the theft of a bicycle was included. We obtained this dataset from
+the City of Toronto Open Data portal. It records all of the bike thefts
+in Toronto starting from as early as 2013. The dataset is published by
+the Toronto Police services and is refreshed annually all the way up
+until 2022. The dataset contains large amount of entries and multiple
+information variables.</p>
 <div id="dataset-description" class="section level3">
 <h3>Dataset Description</h3>
 <ul>
-<li>entry id named X_id
+<li><strong>entry id named X_id</strong>
 <ul>
 <li>unique entry id in increasing order</li>
+<li><em>integer</em></li>
 </ul></li>
-<li>event id named event_unique_id
+<li><strong>event id named event_unique_id</strong>
 <ul>
 <li>unique event id not sorted</li>
+<li><em>string</em></li>
 </ul></li>
-<li>offense committed named Primary_Offense
+<li><strong>offense committed named Primary_Offense</strong>
 <ul>
 <li>type of crime that is committed</li>
+<li><em>string</em></li>
 </ul></li>
-<li>offense occurrence date named Occurrence_Date
+<li><strong>offense occurrence date named Occurrence_Date</strong>
 <ul>
 <li>date of when the crime was committed</li>
+<li><em>string</em></li>
 </ul></li>
-<li>offense occurrence year named Occurrence_Year
+<li><strong>offense occurrence year named Occurrence_Year</strong>
 <ul>
 <li>year of when the crime was committed</li>
+<li><em>integer</em></li>
 </ul></li>
-<li>offense occurrence month named Occurrence_Month
+<li><strong>offense occurrence month named Occurrence_Month</strong>
 <ul>
 <li>month of when the crime was committed</li>
+<li><em>string</em></li>
 </ul></li>
-<li>offense occurrence day of the week named Occurrence_DayOfWeek
+<li><strong>offense occurrence day of the week named
+Occurrence_DayOfWeek</strong>
 <ul>
 <li>what days of week was the crime committed (from Mon to Sun)</li>
+<li><em>string</em></li>
 </ul></li>
-<li>offense occurrence date of the month named Occurrence_DayOfMonth
+<li><strong>offense occurrence date of the month named
+Occurrence_DayOfMonth</strong>
 <ul>
 <li>what date of the month was the crime committed (from 1-31)</li>
+<li><em>integer</em></li>
 </ul></li>
-<li>offense occurrence day of the year named Occurrence_DayOfYear
+<li><strong>offense occurrence day of the year named
+Occurrence_DayOfYear</strong>
 <ul>
 <li>what day of the year was the crime committed (from 1-365)</li>
+<li><em>integer</em></li>
 </ul></li>
-<li>offense occurrence hour named Occurrence_Hour
+<li><strong>offense occurrence hour named Occurrence_Hour</strong>
 <ul>
 <li>what hour of the day was the crime committed (from 1-24)</li>
+<li><em>integer</em></li>
 </ul></li>
-<li>offense report date named Report_Date
+<li><strong>offense report date named Report_Date</strong>
 <ul>
-<li>when the incident was reported to the authorities<br />
+<li>when the incident was reported to the authorities</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>offense report year named Report_Year</strong>
+<ul>
+<li>which year was the incident reported</li>
+<li><em>integer</em></li>
+</ul></li>
+<li><strong>offense report month named Report_Month</strong>
+<ul>
+<li>which month was the incident reported</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>offense report day of the week named DayOfWeek</strong>
+<ul>
+<li>which day of week was the incident reported (Mon - Sun)</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>offense report day of the month named DayOfMonth</strong>
+<ul>
+<li>which day of the month was the incident reported (from 1-31)</li>
+<li><em>integer</em></li>
+</ul></li>
+<li><strong>offense report day of the year named DayOfYear</strong>
+<ul>
+<li>which day of the year was the incident reported (from 1-365)</li>
+<li><em>integer</em></li>
+</ul></li>
+<li><strong>offense report hour named Report_Hour</strong>
+<ul>
+<li>which hour of the day was the incident reported</li>
+<li><em>integer</em></li>
+</ul></li>
+<li><strong>division where offense named Division</strong>
+<ul>
+<li>the division of the location, mostly used to identify the police
+service responsible</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>city where offense where offense took place named
+City</strong>
+<ul>
+<li>city name in or around Toronto</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>hood where offense took place named Hood_ID</strong>
+<ul>
+<li>the hood id for all Toronto’s neighborhoods (out of 158)</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>neighborhood where offense took place named
+NeighbourhoodName</strong>
+<ul>
+<li>the neighborhood name in Toronto and surrounding areas</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>location where offense took place named
+Location_Type</strong>
+<ul>
+<li>broad description of the crime location.</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>location premise of where offense took place named
+Premise_Type</strong>
+<ul>
+<li>description of where bike was stolen</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>bike make of stolen bike named Bike_Make</strong>
+<ul>
+<li>brand of bike that was stolen.</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>bike model of stolen bike named Bike_Model</strong>
+<ul>
+<li>model of bike that was stolen.</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>bike type of stolen bike named Bike_Type</strong>
+<ul>
+<li>type of bike that was stolen</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>bike speed of stolen bike named Bike_Speed</strong>
+<ul>
+<li>the assumed speed of the bike</li>
+<li><em>integer</em></li>
+</ul></li>
+<li><strong>bike color of stolen bike named Bike_Colour</strong>
+<ul>
+<li>colour of the bike that was stolen.</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>cost of stolen bike named Cost_of_Bike</strong>
+<ul>
+<li>cost of bike that was stolen.</li>
+<li><em>double</em></li>
+</ul></li>
+<li><strong>condition of stolen bike named Status</strong>
+<ul>
+<li>current condition of the bike (STOLEN, RECOVERED, or UNKNOWN)</li>
+<li><em>string</em></li>
+</ul></li>
+<li><strong>coordinates of bike stolen named Geometry</strong>
+<ul>
+<li>precise location of the crime location</li>
+<li><em>string</em><br />
 <br />
 <strong>Purpose:</strong> The purpose of this report is to study the
 …</li>
