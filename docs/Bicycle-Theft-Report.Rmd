@@ -29,29 +29,28 @@ The report concerns with the data "Bicycle Thefts Open Data" which contains occu
 \
 \
 **Dataset Description**
-* unordered list
-  + entry id named X_id
-    + unique entry id in increasing order
-  + event id named event_unique_id
-    + unique event id not sorted
-  + offense committed named Primary_Offense
-    + type of crime that is committed
-  + offense occurrence date named Occurrence_Date
-    + date of when the crime was committed
-  + offense occurrence year named Occurrence_Year
-    + year of when the crime was committed
-  + offense occurrence month named Occurrence_Month
-    + month of when the crime was committed
-  + offense occurrence day of the week named Occurrence_DayOfWeek
-    + what days of week was the crime committed (from Mon to Sun)
-  + offense occurrence date of the month named Occurrence_DayOfMonth
-    + what date of the month was the crime committed (from 1-31)
-  + offense occurrence day of the year named Occurrence_DayOfYear
-    + what day of the year was the crime committed (from 1-365)
-  + offense occurrence hour named Occurrence_Hour
-    + what hour of the day was the crime committed (from 1-24)
-  + offense report date named Report_Date
-    + when the incident was reported to the authorities
+* entry id named X_id
+  * unique entry id in increasing order
+* event id named event_unique_id
+  * unique event id not sorted
+* offense committed named Primary_Offense
+  * type of crime that is committed
+* offense occurrence date named Occurrence_Date
+  * date of when the crime was committed
+* offense occurrence year named Occurrence_Year
+  * year of when the crime was committed
+* offense occurrence month named Occurrence_Month
+  * month of when the crime was committed
+* offense occurrence day of the week named Occurrence_DayOfWeek
+  * what days of week was the crime committed (from Mon to Sun)
+* offense occurrence date of the month named Occurrence_DayOfMonth
+  * what date of the month was the crime committed (from 1-31)
+* offense occurrence day of the year named Occurrence_DayOfYear
+  * what day of the year was the crime committed (from 1-365)
+* offense occurrence hour named Occurrence_Hour
+  * what hour of the day was the crime committed (from 1-24)
+* offense report date named Report_Date
+  * when the incident was reported to the authorities
 \
 \
 **Purpose:** The purpose of this report is to study the ...
