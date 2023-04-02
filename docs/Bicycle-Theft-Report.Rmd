@@ -15,7 +15,7 @@ origin <- read.csv("bicycle.csv")
 ```
 
 
-```{r, echo=FALSE, eval=FALSE}
+```{r, include=FALSE}
 # Initiating libraries
 library(tidyverse)
 library(ggplot2)
