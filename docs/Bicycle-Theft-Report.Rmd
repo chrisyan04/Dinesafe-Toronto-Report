@@ -15,7 +15,7 @@ origin <- read.csv("bicycle.csv")
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 # Initiating libraries
 library(tidyverse)
 library(ggplot2)
@@ -23,7 +23,6 @@ library(ggmap)
 library(png)
 library(ggpubr)
 library(osmdata)
-citation("ggmap")
 ```
 The report concerns with the data "Bicycle Thefts Open Data" which contains occurrences related to bicycle thefts reported to the Toronto Police Service. These occurrences are related to a variety of offences where the theft of a bicycle was included.
 \
