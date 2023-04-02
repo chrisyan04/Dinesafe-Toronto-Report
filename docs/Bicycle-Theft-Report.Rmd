@@ -128,7 +128,9 @@ The report concerns with the data "Bicycle Thefts Open Data" which contains occu
 \
 **Purpose:** The purpose of this report is to study the ...
 
-```{r}
+If we look at the data we see that there are NAs in certain places of the dataset.
+So let's remove those by omitting them.
+```{r, echo=FALSE}
 #omit all the entries that has NA inputs, they won't be helpful to our data
 data <- na.omit(origin)
 summary <- table(data$Occurrence_Year)

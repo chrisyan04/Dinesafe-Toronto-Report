@@ -539,10 +539,8 @@ Premise_Type</strong>
 …</li>
 </ul></li>
 </ul>
-<pre class="r"><code>#omit all the entries that has NA inputs, they won&#39;t be helpful to our data
-data &lt;- na.omit(origin)
-summary &lt;- table(data$Occurrence_Year)
-print(summary)</code></pre>
+<p>If we look at the data we see that there are NAs in certain places of
+the dataset. So let’s remove those by omitting them.</p>
 <pre><code>## 
 ## 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 
 ##    1    2    3    2   28 2475 2611 3132 3253 3413 3115 3253 2591  886</code></pre>
