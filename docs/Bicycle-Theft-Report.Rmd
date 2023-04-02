@@ -29,4 +29,6 @@ The report concerns with the data "Bicycle Thefts Open Data" which containes occ
 ```{r, echo=FALSE}
 #omit all the entries that has NA inputs, they won't be helpful to our data
 data <- na.omit(origin)
+summary <- table(data$Occurrence_Year)
+print(summary)
 ```
