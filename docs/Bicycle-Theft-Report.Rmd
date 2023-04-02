@@ -24,10 +24,13 @@ library(png)
 library(ggpubr)
 library(osmdata)
 ```
+
+## Introduction
+
 The report concerns with the data "Bicycle Thefts Open Data" which contains occurrences related to bicycle thefts reported to the Toronto Police Service. These occurrences are related to a variety of offences where the theft of a bicycle was included.
-\
-\
-**Dataset Description**
+
+### Dataset Description
+
 * entry id named X_id
   * unique entry id in increasing order
 * event id named event_unique_id

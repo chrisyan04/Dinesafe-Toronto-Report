@@ -358,31 +358,63 @@ Rehman Shah 1009641309</h4>
 </div>
 
 
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
 <p>The report concerns with the data “Bicycle Thefts Open Data” which
 contains occurrences related to bicycle thefts reported to the Toronto
 Police Service. These occurrences are related to a variety of offences
-where the theft of a bicycle was included.<br />
-<br />
-<strong>Dataset Description</strong> * entry id named X_id * unique
-entry id in increasing order * event id named event_unique_id * unique
-event id not sorted * offense committed named Primary_Offense * type of
-crime that is committed * offense occurrence date named Occurrence_Date
-* date of when the crime was committed * offense occurrence year named
-Occurrence_Year * year of when the crime was committed * offense
-occurrence month named Occurrence_Month * month of when the crime was
-committed * offense occurrence day of the week named
-Occurrence_DayOfWeek * what days of week was the crime committed (from
-Mon to Sun) * offense occurrence date of the month named
-Occurrence_DayOfMonth * what date of the month was the crime committed
-(from 1-31) * offense occurrence day of the year named
-Occurrence_DayOfYear * what day of the year was the crime committed
-(from 1-365) * offense occurrence hour named Occurrence_Hour * what hour
-of the day was the crime committed (from 1-24) * offense report date
-named Report_Date * when the incident was reported to the
-authorities<br />
+where the theft of a bicycle was included.</p>
+<div id="dataset-description" class="section level3">
+<h3>Dataset Description</h3>
+<ul>
+<li>entry id named X_id
+<ul>
+<li>unique entry id in increasing order</li>
+</ul></li>
+<li>event id named event_unique_id
+<ul>
+<li>unique event id not sorted</li>
+</ul></li>
+<li>offense committed named Primary_Offense
+<ul>
+<li>type of crime that is committed</li>
+</ul></li>
+<li>offense occurrence date named Occurrence_Date
+<ul>
+<li>date of when the crime was committed</li>
+</ul></li>
+<li>offense occurrence year named Occurrence_Year
+<ul>
+<li>year of when the crime was committed</li>
+</ul></li>
+<li>offense occurrence month named Occurrence_Month
+<ul>
+<li>month of when the crime was committed</li>
+</ul></li>
+<li>offense occurrence day of the week named Occurrence_DayOfWeek
+<ul>
+<li>what days of week was the crime committed (from Mon to Sun)</li>
+</ul></li>
+<li>offense occurrence date of the month named Occurrence_DayOfMonth
+<ul>
+<li>what date of the month was the crime committed (from 1-31)</li>
+</ul></li>
+<li>offense occurrence day of the year named Occurrence_DayOfYear
+<ul>
+<li>what day of the year was the crime committed (from 1-365)</li>
+</ul></li>
+<li>offense occurrence hour named Occurrence_Hour
+<ul>
+<li>what hour of the day was the crime committed (from 1-24)</li>
+</ul></li>
+<li>offense report date named Report_Date
+<ul>
+<li>when the incident was reported to the authorities<br />
 <br />
 <strong>Purpose:</strong> The purpose of this report is to study the
-…</p>
+…</li>
+</ul></li>
+</ul>
 <pre class="r"><code>#omit all the entries that has NA inputs, they won&#39;t be helpful to our data
 data &lt;- na.omit(origin)
 summary &lt;- table(data$Occurrence_Year)
@@ -394,6 +426,8 @@ print(summary)</code></pre>
 the 2022 data is not complete. Therefore, Let’s filter them out and
 obtain a complete set of data, the one we will be using for our report
 below.</p>
+</div>
+</div>
 
 
 
