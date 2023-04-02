@@ -153,5 +153,10 @@ Therefore, Let's filter them out and obtain a complete set of data, the one we w
 # Bootstrapping - Armaan
 ```
 
+```{r}
+#Aaron's Chunk 1
+```
 
-
+```{r}
+#Aaron's chunk 2
+```
