@@ -149,6 +149,22 @@ We can see that there are some outliers from 2009-2013, in addition, the 2022 da
 Therefore, Let's filter them out and obtain a complete set of data, the one we will be using for our report below.
 
 ```{r}
+# produce a graph showing how cost of bike affects the probability that it will be stolen.
+# utilises probability theory in it
+# create a mutation where we have a case when applying to different intervals of costs of bike.
+# let's keep a relatively insightful interval
+# from this new column that we created, we can then sum up all similar values in the column.
+# use of sum columns
+# from  here we can then produce a graph that shows as wanted.
+
+
+
+
+```
+
+
+
+```{r}
 
 # Bootstrapping - Armaan
 ```
