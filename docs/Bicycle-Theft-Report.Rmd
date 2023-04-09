@@ -155,6 +155,7 @@ summary_table = data %>% count(Occurrence_Year) %>%
   rename(Year = Occurrence_Year, Theft_Count = n)
 print(summary_table)
 ```
+
 ```{r}
 # produce a graph showing how cost of bike affects the probability that it will be stolen.
 # utilises probability theory in it
@@ -165,12 +166,27 @@ print(summary_table)
 # from  here we can then produce a graph that shows as wanted.
 # define the price range bins
 
+# Calculate average cost of bike by year
+avg_cost_by_year <- data %>%
+  group_by(Occurrence_Year) %>%
+  summarize(avg_cost = mean(Cost_of_Bike))
+
+# Create plot of average cost of bike by year
+ggplot(avg_cost_by_year, aes(x = Occurrence_Year, y = avg_cost)) +
+  geom_line(color = "blue") +
+  geom_point(color = "blue") +
+  labs(x = "Occurrence Year", y = "Average Cost of Bike") +
+  ggtitle("Average Cost of Stolen Bikes by Occurrence Year")
+```
+```{r}
+ggplot(data = data, aes(x = Occurrence_Hour)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "lightblue") +
+  labs(x = "Occurrence Hour", y = "Number of Thefts") +
+  ggtitle("Number of Thefts During each Hour")
 ```
 
 
-
 ```{r}
-
 # Bootstrapping - Armaan
 ```
 
