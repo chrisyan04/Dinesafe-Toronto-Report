@@ -595,13 +595,30 @@ the dataset. So let’s remove those by omitting them.</p>
 the 2022 data is not complete. Therefore, Let’s filter them out and
 obtain a complete set of data, the one we will be using for our report
 below.</p>
+<pre class="r"><code>data = data %&gt;% filter(Occurrence_Year &gt;= 2014) %&gt;%
+  filter(Occurrence_Year &lt; 2022)
+summary_table = data %&gt;% count(Occurrence_Year) %&gt;% 
+  rename(Year = Occurrence_Year, Theft_Count = n)
+print(summary_table)</code></pre>
+<pre><code>##   Year Theft_Count
+## 1 2014        2475
+## 2 2015        2611
+## 3 2016        3132
+## 4 2017        3253
+## 5 2018        3413
+## 6 2019        3115
+## 7 2020        3253
+## 8 2021        2591</code></pre>
+<p>We can see that now we have a complete entry, these entries is what
+we will be using for our report below.</p>
 <pre class="r"><code># produce a graph showing how cost of bike affects the probability that it will be stolen.
 # utilises probability theory in it
 # create a mutation where we have a case when applying to different intervals of costs of bike.
 # let&#39;s keep a relatively insightful interval
 # from this new column that we created, we can then sum up all similar values in the column.
 # use of sum columns
-# from  here we can then produce a graph that shows as wanted.</code></pre>
+# from  here we can then produce a graph that shows as wanted.
+# define the price range bins</code></pre>
 <pre class="r"><code># Bootstrapping - Armaan</code></pre>
 <pre class="r"><code>#Aaron&#39;s Chunk 1</code></pre>
 <pre class="r"><code>#Aaron&#39;s chunk 2</code></pre>

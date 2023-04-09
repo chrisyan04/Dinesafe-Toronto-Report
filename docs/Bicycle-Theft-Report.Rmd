@@ -24,6 +24,7 @@ library(ggmap)
 library(png)
 library(ggpubr)
 library(osmdata)
+library(gganimate)
 ```
 
 ## Introduction
@@ -147,7 +148,15 @@ print(summary)
 
 We can see that there are some outliers from 2009-2013, in addition, the 2022 data is not complete.
 Therefore, Let's filter them out and obtain a complete set of data, the one we will be using for our report below.
-
+```{r}
+data = data %>% filter(Occurrence_Year >= 2014) %>%
+  filter(Occurrence_Year < 2022)
+summary_table = data %>% count(Occurrence_Year) %>% 
+  rename(Year = Occurrence_Year, Theft_Count = n)
+print(summary_table)
+```
+  We can see that now we have a complete entry, these entries is what we will be
+using for our report below.
 ```{r}
 # produce a graph showing how cost of bike affects the probability that it will be stolen.
 # utilises probability theory in it
@@ -156,9 +165,7 @@ Therefore, Let's filter them out and obtain a complete set of data, the one we w
 # from this new column that we created, we can then sum up all similar values in the column.
 # use of sum columns
 # from  here we can then produce a graph that shows as wanted.
-
-
-
+# define the price range bins
 
 ```
 
