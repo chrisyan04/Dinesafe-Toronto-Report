@@ -29,7 +29,7 @@ library(gganimate)
 
 ## Introduction
 
-The report concerns with the data "Bicycle Thefts Open Data" which contains occurrences related to bicycle thefts reported to the Toronto Police Service. These occurrences are related to a variety of offences where the theft of a bicycle was included. We obtained this dataset from the City of Toronto Open Data portal. It records all of the bike thefts in Toronto starting from as early as 2013. The dataset is published by the Toronto Police services and is refreshed annually all the way up until 2022. The dataset contains large amount of entries and multiple information variables.
+  The report concerns with the data "Bicycle Thefts Open Data" which contains occurrences related to bicycle thefts reported to the Toronto Police Service. These occurrences are related to a variety of offences where the theft of a bicycle was included. We obtained this dataset from the City of Toronto Open Data portal. It records all of the bike thefts in Toronto starting from as early as 2013. The dataset is published by the Toronto Police services and is refreshed annually all the way up until 2022. The dataset contains large amount of entries and multiple information variables.
 \
 
 Let's view a glimpse of the data:
@@ -135,7 +135,7 @@ glimpse(origin)
 
 ### Purpose
 
-The purpose of our report is to inform the public about the bike safety concerns in Toronto and its surrounding areas with regards to the precedence of stolen bikes in certain areas. We want to make it known in our report that the public should avoid parking bikes in hot-spots where bikes are often stolen. A map of the density of the stolen bike occurrences will show the precise locations where one should avoid leaving their bike. With our research we hope to provide a thorough investigation into these hot-spots and also provide such information of stolen bike occurences to the Toronto Police.
+  The purpose of our report is to inform the public about the bike safety concerns in Toronto and its surrounding areas with regards to the precedence of stolen bikes in certain areas. We want to make it known in our report that the public should avoid parking bikes in hot-spots where bikes are often stolen. A map of the density of the stolen bike occurrences will show the precise locations where one should avoid leaving their bike. With our research we hope to provide a thorough investigation into these hot-spots and also provide such information of stolen bike occurences to the Toronto Police.
 
 If we look at the data we see that there are NAs in certain places of the dataset.
 So let's remove those by omitting them.
@@ -146,7 +146,7 @@ summary <- table(data$Occurrence_Year)
 print(summary)
 ```
 
-We can see that there are some outliers from 2009-2013, in addition, the 2022 data is not complete.
+  We can see that there are some outliers from 2009-2013, in addition, the 2022 data is not complete.
 Therefore, Let's filter them out and obtain a complete set of data, the one we will be using for our report below.
 ```{r}
 data = data %>% filter(Occurrence_Year >= 2014) %>%
@@ -155,8 +155,6 @@ summary_table = data %>% count(Occurrence_Year) %>%
   rename(Year = Occurrence_Year, Theft_Count = n)
 print(summary_table)
 ```
-  We can see that now we have a complete entry, these entries is what we will be
-using for our report below.
 ```{r}
 # produce a graph showing how cost of bike affects the probability that it will be stolen.
 # utilises probability theory in it
