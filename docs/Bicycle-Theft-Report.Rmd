@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 origin <- read.csv("bicycle.csv")
 ```
 
+
 ```{r, include=FALSE}
 # Initiating libraries
 library(tidyverse)
@@ -24,129 +25,133 @@ library(png)
 library(ggpubr)
 library(osmdata)
 library(gganimate)
+library(scales)
+library(dplyr)
 ```
 
 ## Introduction
 
-The report concerns with the data "Bicycle Thefts Open Data" which contains occurrences related to bicycle thefts reported to the Toronto Police Service. 
-These occurrences are related to a variety of offences where the theft of a bicycle was included. We obtained this dataset from the City of Toronto Open Data portal. It records all of the bike thefts in Toronto starting from as early as 2013. 
-The dataset is published by the Toronto Police services and is refreshed annually with the most recent publish being 2022. The dataset contains large amount of entries and multiple information variables\
+  The report concerns with the data "Bicycle Thefts Open Data" which contains occurrences related to bicycle thefts reported to the Toronto Police Service. These occurrences are related to a variety of offences where the theft of a bicycle was included. We obtained this dataset from the City of Toronto Open Data portal. It records all of the bike thefts in Toronto starting from as early as 2013. The dataset is published by the Toronto Police services and is refreshed annually all the way up until 2022. The dataset contains large amount of entries and multiple information variables.
+\
 
-### Purpose
-
-The purpose of our report is to inform the public about the bike safety concerns in Toronto and its surrounding areas with regards to the precedence of stolen bikes in certain areas. We want to make it known in our report that the public should avoid parking bikes in hot-spots where bikes are often stolen. A map of the density of the stolen bike occurrences will show the precise locations where one should avoid leaving their bike. With our research we hope to provide a thorough investigation into these hot-spots and also provide such information of stolen bike occurrences to the Toronto Police.
+Let's view a glimpse of the data:
+```{r}
+glimpse(origin)
+```
 \pagebreak
 
 ### Dataset Description
 
--   **entry id named X_id**
-    -   unique entry id in increasing order
-    -   *integer*
--   **event id named event_unique_id**
-    -   unique event id not sorted
-    -   *string*
--   **offense committed named Primary_Offense**
-    -   type of crime that is committed
-    -   *string*
--   **offense occurrence date named Occurrence_Date**
-    -   date of when the crime was committed
-    -   *string*
--   **offense occurrence year named Occurrence_Year**
-    -   year of when the crime was committed
-    -   *integer*
--   **offense occurrence month named Occurrence_Month**
-    -   month of when the crime was committed
-    -   *string*
--   **offense occurrence day of the week named Occurrence_DayOfWeek**
-    -   what days of week was the crime committed (from Mon to Sun)
-    -   *string*
--   **offense occurrence date of the month named Occurrence_DayOfMonth**
-    -   what date of the month was the crime committed (from 1-31)
-    -   *integer*
--   **offense occurrence day of the year named Occurrence_DayOfYear**
-    -   what day of the year was the crime committed (from 1-365)
-    -   *integer*
--   **offense occurrence hour named Occurrence_Hour**
-    -   what hour of the day was the crime committed (from 1-24)
-    -   *integer*
--   **offense report date named Report_Date**
-    -   when the incident was reported to the authorities
-    -   *string*
--   **offense report year named Report_Year**
-    -   which year was the incident reported
-    -   *integer*
--   **offense report month named Report_Month**
-    -   which month was the incident reported
-    -   *string*
--   **offense report day of the week named DayOfWeek**
-    -   which day of week was the incident reported (Mon - Sun)
-    -   *string*
--   **offense report day of the month named DayOfMonth**
-    -   which day of the month was the incident reported (from 1-31)
-    -   *integer*
--   **offense report day of the year named DayOfYear**
-    -   which day of the year was the incident reported (from 1-365)
-    -   *integer*
--   **offense report hour named Report_Hour**
-    -   which hour of the day was the incident reported
-    -   *integer*
--   **division where offense named Division**
-    -   the division of the location, mostly used to identify the police service responsible
-    -   *string*
--   **city where offense where offense took place named City**
-    -   city name in or around Toronto
-    -   *string*
--   **hood where offense took place named Hood_ID**
-    -   the hood id for all Toronto's neighborhoods (out of 158)
-    -   *string*
--   **neighborhood where offense took place named NeighbourhoodName**
-    -   the neighborhood name in Toronto and surrounding areas
-    -   *string*
--   **location where offense took place named Location_Type**
-    -   broad description of the crime location.
-    -   *string*
--   **location premise of where offense took place named Premise_Type**
-    -   description of where bike was stolen
-    -   *string*
--   **bike make of stolen bike named Bike_Make**
-    -   brand of bike that was stolen.
-    -   *string*
--   **bike model of stolen bike named Bike_Model**
-    -   model of bike that was stolen.
-    -   *string*
--   **bike type of stolen bike named Bike_Type**
-    -   type of bike that was stolen
-    -   *string*
--   **bike speed of stolen bike named Bike_Speed**
-    -   the assumed speed of the bike
-    -   *integer*
--   **bike color of stolen bike named Bike_Colour**
-    -   colour of the bike that was stolen.
-    -   *string*
--   **cost of stolen bike named Cost_of_Bike**
-    -   cost of bike that was stolen.
-    -   *double*
--   **condition of stolen bike named Status**
-    -   current condition of the bike (STOLEN, RECOVERED, or UNKNOWN)
-    -   *string*
--   **coordinates of bike stolen named Geometry**
-    -   precise location of the crime location
-    -   *string*
+* __entry id named X_id__
+  * unique entry id in increasing order
+  * _integer_
+* __event id named event_unique_id__
+  * unique event id not sorted
+  * _string_
+* __offense committed named Primary_Offense__
+  * type of crime that is committed
+  * _string_
+* __offense occurrence date named Occurrence_Date__
+  * date of when the crime was committed
+  * _string_
+* __offense occurrence year named Occurrence_Year__
+  * year of when the crime was committed
+  * _integer_
+* __offense occurrence month named Occurrence_Month__
+  * month of when the crime was committed
+  * _string_
+* __offense occurrence day of the week named Occurrence_DayOfWeek__
+  * what days of week was the crime committed (from Mon to Sun)
+  * _string_
+* __offense occurrence date of the month named Occurrence_DayOfMonth__
+  * what date of the month was the crime committed (from 1-31)
+  * _integer_
+* __offense occurrence day of the year named Occurrence_DayOfYear__
+  * what day of the year was the crime committed (from 1-365)
+  * _integer_
+* __offense occurrence hour named Occurrence_Hour__
+  * what hour of the day was the crime committed (from 1-24)
+  * _integer_
+* __offense report date named Report_Date__
+  * when the incident was reported to the authorities
+  * _string_
+* __offense report year named Report_Year__
+  * which year was the incident reported
+  * _integer_
+* __offense report month named Report_Month__
+  * which month was the incident reported
+  * _string_
+* __offense report day of the week named DayOfWeek__
+  * which day of week was the incident reported (Mon - Sun)
+  * _string_
+* __offense report day of the month named DayOfMonth__
+  * which day of the month was the incident reported (from 1-31)
+  * _integer_
+* __offense report day of the year named DayOfYear__
+  * which day of the year was the incident reported (from 1-365)
+  * _integer_
+* __offense report hour named Report_Hour__
+  * which hour of the day was the incident reported
+  * _integer_
+* __division where offense named Division__
+  * the division of the location, mostly used to identify the police service responsible
+  * _string_
+* __city where offense where offense took place named City__
+  * city name in or around Toronto
+  * _string_
+* __hood where offense took place named Hood_ID__
+  * the hood id for all Toronto's neighborhoods (out of 158)
+  * _string_
+* __neighborhood where offense took place named NeighbourhoodName__
+  * the neighborhood name in Toronto and surrounding areas
+  * _string_
+* __location where offense took place named Location_Type__
+  * broad description of the crime location.
+  * _string_
+* __location premise of where offense took place named Premise_Type__
+  * description of where bike was stolen
+  * _string_
+* __bike make of stolen bike named Bike_Make__
+  * brand of bike that was stolen.
+  * _string_
+* __bike model of stolen bike named Bike_Model__
+  * model of bike that was stolen.
+  * _string_
+* __bike type of stolen bike named Bike_Type__
+  * type of bike that was stolen
+  * _string_
+* __bike speed of stolen bike named Bike_Speed__
+  * the assumed speed of the bike
+  * _integer_
+* __bike color of stolen bike named Bike_Colour__
+  * colour of the bike that was stolen.
+  * _string_
+* __cost of stolen bike named Cost_of_Bike__
+  * cost of bike that was stolen.
+  * _double_
+* __condition of stolen bike named Status__
+  * current condition of the bike (STOLEN, RECOVERED, or UNKNOWN)
+  * _string_
+* __coordinates of bike stolen named Geometry__
+  * precise location of the crime location
+  * _string_
 
 \pagebreak
-As with all the data, let us do a preliminary safety removal of any data that has NA entries.
-In addition, let us print out a summary of crimes by year to see if there are any outliers.\
-\
-**Figure 1: Total Number of Bike Thefts Each Year**
+### Purpose
+
+  The purpose of our report is to inform the public about the bike safety concerns in Toronto and its surrounding areas with regards to the precedence of stolen bikes in certain areas. We want to make it known in our report that the public should avoid parking bikes in hot-spots where bikes are often stolen. A map of the density of the stolen bike occurrences will show the precise locations where one should avoid leaving their bike. With our research we hope to provide a thorough investigation into these hot-spots and also provide such information of stolen bike occurences to the Toronto Police.
+
+If we look at the data we see that there are NAs in certain places of the dataset.
+So let's remove those by omitting them.
 ```{r, echo=FALSE}
 #omit all the entries that has NA inputs, they won't be helpful to our data
 data <- na.omit(origin)
 summary <- table(data$Occurrence_Year)
 print(summary)
 ```
-We can see that there are some outliers from 2009-2013. In addition, the 2022 data is not complete. Let us filter them out and obtain a complete data, the one we will be using for our report below.\
-\
-**Figure 2: Data After Filtering Incomplete Years**
+
+  We can see that there are some outliers from 2009-2013, in addition, the 2022 data is not complete.
+Therefore, Let's filter them out and obtain a complete set of data, the one we will be using for our report below.
 ```{r}
 data = data %>% filter(Occurrence_Year >= 2014) %>%
   filter(Occurrence_Year < 2022)
@@ -156,6 +161,15 @@ print(summary_table)
 ```
 \newpage
 ```{r}
+# produce a graph showing how cost of bike affects the probability that it will be stolen.
+# utilises probability theory in it
+# create a mutation where we have a case when applying to different intervals of costs of bike.
+# let's keep a relatively insightful interval
+# from this new column that we created, we can then sum up all similar values in the column.
+# use of sum columns
+# from  here we can then produce a graph that shows as wanted.
+# define the price range bins
+
 # Calculate average cost of bike by year
 avg_cost_by_year <- data %>%
   group_by(Occurrence_Year) %>%
@@ -171,16 +185,13 @@ ggplot(avg_cost_by_year, aes(x = Occurrence_Year, y = avg_cost)) +
 
 #do a line of best fit
 ```
-
 \newpage
-
 ```{r}
 ggplot(data = data, aes(x = Occurrence_Hour)) +
   geom_histogram(binwidth = 1, color = "black", fill = "lightblue") +
   labs(x = "Occurrence Hour", y = "Number of Thefts") +
   ggtitle("Number of Thefts During each Hour")
 ```
-
 \pagebreak
 
 The graph below shows the amount of bikes stolen in the first half of years 2019 and 2020.
@@ -196,6 +207,7 @@ ggplot(data2, aes( x=Report_DayOfYear)) +
 ```
 
 We can deduce that a significantly higher number of bikes were stolen in the first half of 2019 than 2020.
+
 
 Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap confidence interval for the proportion of buildings not violating a code:
 
@@ -224,6 +236,7 @@ quantile(replicate(1000, boot_function()), c(0.1, 0.9))
 
 From this, we know that ...
 
+
 Now, let's create a summary table to find out the most frequent type of bike stolen (Bike_Make and Bike_Colour) in 2013
 
 ```{r}
@@ -237,4 +250,46 @@ as.data.frame(data3)
 ```
 
 From the above table, we can notice that the most frequent type of bike stolen in 2013 was a CCM with color blue.
+
+```{r}
+#Aaron's Chunk 1
+```
+
+
+Let's map out the occurences of such bike thefts onto a scatterplot to visualize the span of the thefts across Toronto.
+Steps:
+- first create a table that a column that represents the number of thefts in that neighborhood.
+- then with the columns we do case whens to filter the neighborhoods
+- then do the scatterplot
+```{r}
+
+new_table <- table(data$NeighbourhoodName)
+# create data frame with neighborhood names and counts
+new_df <- data.frame(nh = names(new_table), count = as.vector(new_table), hood_id = unique(data$Hood_ID[match(names(new_table), data$NeighbourhoodName)]))
+
+new_df$hood_id <- as.numeric(new_df$hood_id)
+
+new_df <- new_df %>% mutate(nh_groups = case_when(new_df$hood_id >= 112 ~ 'East',
+                                                  (new_df$hood_id<112 & new_df$hood_id>=84) ~ 'Central',
+                                                  (new_df$hood_id<84 & new_df$hood_id>=56)~'Downtown',
+                                                  (new_df$hood_id<56 & new_df$hood_id>=28)~'North',
+                                                  TRUE~'West'))
+
+grouped_data <- new_df %>% 
+  group_by(nh_groups) %>% 
+  summarize(count = sum(count)) %>%
+  mutate(percentage = percent(count / sum(count)))
+
+# create a pie chart
+ggplot(grouped_data, aes(x = "", y = count, fill = nh_groups)) +
+  geom_col(width = 1) +
+  coord_polar(theta = "y") +
+  labs(fill = "Neighborhood Groups") +
+  ggtitle("Neighborhood Group Counts") +
+  geom_text(aes(label = percentage), position = position_stack(vjust = 0.5)) +
+  scale_y_continuous(labels = percent_format()) +
+  theme_void() +
+  theme(text = element_text(size = 12))
+
+```
 
