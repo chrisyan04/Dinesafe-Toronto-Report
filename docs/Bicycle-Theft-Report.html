@@ -368,10 +368,22 @@ Police Service. These occurrences are related to a variety of offences
 where the theft of a bicycle was included. We obtained this dataset from
 the City of Toronto Open Data portal. It records all of the bike thefts
 in Toronto starting from as early as 2013. The dataset is published by
-the Toronto Police services and is refreshed annually all the way up
-until 2022. The dataset contains large amount of entries and multiple
-information variables.<br />
+the Toronto Police services and is refreshed annually with the most
+recent publish being 2022. The dataset contains large amount of entries
+and multiple information variables<br />
 </p>
+<div id="purpose" class="section level3">
+<h3>Purpose</h3>
+<p>The purpose of our report is to inform the public about the bike
+safety concerns in Toronto and its surrounding areas with regards to the
+precedence of stolen bikes in certain areas. We want to make it known in
+our report that the public should avoid parking bikes in hot-spots where
+bikes are often stolen. A map of the density of the stolen bike
+occurrences will show the precise locations where one should avoid
+leaving their bike. With our research we hope to provide a thorough
+investigation into these hot-spots and also provide such information of
+stolen bike occurrences to the Toronto Police. </p>
+</div>
 <div id="dataset-description" class="section level3">
 <h3>Dataset Description</h3>
 <ul>
@@ -540,27 +552,19 @@ Premise_Type</strong>
 </ul></li>
 </ul>
 <div style="page-break-after: always;"></div>
-</div>
-<div id="purpose" class="section level3">
-<h3>Purpose</h3>
-<p>The purpose of our report is to inform the public about the bike
-safety concerns in Toronto and its surrounding areas with regards to the
-precedence of stolen bikes in certain areas. We want to make it known in
-our report that the public should avoid parking bikes in hot-spots where
-bikes are often stolen. A map of the density of the stolen bike
-occurrences will show the precise locations where one should avoid
-leaving their bike. With our research we hope to provide a thorough
-investigation into these hot-spots and also provide such information of
-stolen bike occurences to the Toronto Police.</p>
-<p>If we look at the data we see that there are NAs in certain places of
-the dataset. So let’s remove those by omitting them.</p>
+<p>As with all the data, let us do a preliminary safety removal of any
+data that has NA entries. In addition, let us print out a summary of
+crimes by year to see if there are any outliers.<br />
+<br />
+<strong>Figure 1: Total Number of Bike Thefts Each Year</strong></p>
 <pre><code>## 
 ## 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 
 ##    1    2    3    2   28 2475 2611 3132 3253 3413 3115 3253 2591  886</code></pre>
-<p>We can see that there are some outliers from 2009-2013, in addition,
-the 2022 data is not complete. Therefore, Let’s filter them out and
-obtain a complete set of data, the one we will be using for our report
-below.</p>
+<p>We can see that there are some outliers from 2009-2013. In addition,
+the 2022 data is not complete. Let us filter them out and obtain a
+complete data, the one we will be using for our report below.<br />
+<br />
+<strong>Figure 2: Data After Filtering Incomplete Years</strong></p>
 <pre class="r"><code>data = data %&gt;% filter(Occurrence_Year &gt;= 2014) %&gt;%
   filter(Occurrence_Year &lt; 2022)
 summary_table = data %&gt;% count(Occurrence_Year) %&gt;% 
@@ -576,16 +580,7 @@ print(summary_table)</code></pre>
 ## 7 2020        3253
 ## 8 2021        2591</code></pre>
 <div style="page-break-after: always;"></div>
-<pre class="r"><code># produce a graph showing how cost of bike affects the probability that it will be stolen.
-# utilises probability theory in it
-# create a mutation where we have a case when applying to different intervals of costs of bike.
-# let&#39;s keep a relatively insightful interval
-# from this new column that we created, we can then sum up all similar values in the column.
-# use of sum columns
-# from  here we can then produce a graph that shows as wanted.
-# define the price range bins
-
-# Calculate average cost of bike by year
+<pre class="r"><code># Calculate average cost of bike by year
 avg_cost_by_year &lt;- data %&gt;%
   group_by(Occurrence_Year) %&gt;%
   summarize(avg_cost = mean(Cost_of_Bike))
@@ -630,13 +625,13 @@ prop.test(x = sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;), n = length(s
 ##  1-sample proportions test with continuity correction
 ## 
 ## data:  sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;) out of length(samp$Occurrence_DayOfWeek), null probability 0.5
-## X-squared = 525.62, df = 1, p-value &lt; 2.2e-16
+## X-squared = 491.4, df = 1, p-value &lt; 2.2e-16
 ## alternative hypothesis: true p is not equal to 0.5
 ## 97 percent confidence interval:
-##  0.1146374 0.1628373
+##  0.1257467 0.1756108
 ## sample estimates:
 ##     p 
-## 0.137</code></pre>
+## 0.149</code></pre>
 <pre class="r"><code># Bootstrapping
 
 boot_function = function(){
@@ -651,7 +646,7 @@ boot_function = function(){
 
 quantile(replicate(1000, boot_function()), c(0.1, 0.9))</code></pre>
 <pre><code>##   10%   90% 
-## 0.123 0.151</code></pre>
+## 0.134 0.163</code></pre>
 <p>From this, we know that …</p>
 <p>Now, let’s create a summary table to find out the most frequent type
 of bike stolen (Bike_Make and Bike_Colour) in 2013</p>
@@ -709,7 +704,6 @@ of bike stolen (Bike_Make and Bike_Colour) in 2013</p>
 ## 43            2013 CCM                  BLU        3</code></pre>
 <p>From the above table, we can notice that the most frequent type of
 bike stolen in 2013 was a CCM with color blue.</p>
-<pre class="r"><code>#Aaron&#39;s Chunk 1</code></pre>
 </div>
 </div>
 
