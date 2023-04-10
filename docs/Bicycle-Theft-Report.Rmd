@@ -157,6 +157,9 @@ summary_table = data %>% count(Occurrence_Year) %>%
 print(summary_table)
 ```
 \newpage
+For our first observation, let us use grouping, summarizing to create a simple plot\
+\
+**Figure 3: Average Cost of Stolen Bikes by Occurrence Year**
 ```{r}
 # Calculate average cost of bike by year
 avg_cost_by_year <- data %>%
@@ -167,19 +170,23 @@ avg_cost_by_year <- data %>%
 ggplot(avg_cost_by_year, aes(x = Occurrence_Year, y = avg_cost)) +
   geom_line(color = "blue") +
   geom_point(color = "blue") +
-  labs(x = "Occurrence Year", y = "Average Cost of Bike") +
-  ggtitle("Average Cost of Stolen Bikes by Occurrence Year")
-
-
-#do a line of best fit
+  labs(x = "Occurrence Year", y = "Average Cost of Bike")
+  #ggtitle("Average Cost of Stolen Bikes by Occurrence Year")
 ```
+From the graph, we can observe that there was a upward trend of the bike pricing until the 2020.
+This could suggest a decrease in bike quality stolen since the pandemic started.
 \newpage
+For our next observation, let us utilize the hour variable given to determine the high traffic time for bike thefts.\
+\
+**Figure 4: Number of Thefts During each Hour**
 ```{r}
 ggplot(data = data, aes(x = Occurrence_Hour)) +
   geom_histogram(binwidth = 1, color = "black", fill = "lightblue") +
-  labs(x = "Occurrence Hour", y = "Number of Thefts") +
-  ggtitle("Number of Thefts During each Hour")
+  labs(x = "Occurrence Hour", y = "Number of Thefts") 
+  #ggtitle("Number of Thefts During each Hour")
 ```
+Observing this histogram, we can see that after midnight, there is a significant decrease in thefts.
+The theft occurrences spikes again after 7am before peaking at 6pm. This observation make sense as most citizens secure their bikes during nighttime, while incidents are more likely to occur during high traffic times in the morning and evening.
 \pagebreak
 
 The graph below shows the amount of bikes stolen in the first half of years 2019 and 2020.
