@@ -36,6 +36,7 @@ Let's view a glimpse of the data:
 ```{r}
 glimpse(origin)
 ```
+\pagebreak
 
 ### Dataset Description
 
@@ -133,6 +134,7 @@ glimpse(origin)
   * precise location of the crime location
   * _string_
 
+\pagebreak
 ### Purpose
 
   The purpose of our report is to inform the public about the bike safety concerns in Toronto and its surrounding areas with regards to the precedence of stolen bikes in certain areas. We want to make it known in our report that the public should avoid parking bikes in hot-spots where bikes are often stolen. A map of the density of the stolen bike occurrences will show the precise locations where one should avoid leaving their bike. With our research we hope to provide a thorough investigation into these hot-spots and also provide such information of stolen bike occurences to the Toronto Police.
@@ -155,7 +157,7 @@ summary_table = data %>% count(Occurrence_Year) %>%
   rename(Year = Occurrence_Year, Theft_Count = n)
 print(summary_table)
 ```
-
+\newpage
 ```{r}
 # produce a graph showing how cost of bike affects the probability that it will be stolen.
 # utilises probability theory in it
@@ -177,7 +179,11 @@ ggplot(avg_cost_by_year, aes(x = Occurrence_Year, y = avg_cost)) +
   geom_point(color = "blue") +
   labs(x = "Occurrence Year", y = "Average Cost of Bike") +
   ggtitle("Average Cost of Stolen Bikes by Occurrence Year")
+
+
+#do a line of best fit
 ```
+\newpage
 ```{r}
 ggplot(data = data, aes(x = Occurrence_Hour)) +
   geom_histogram(binwidth = 1, color = "black", fill = "lightblue") +
