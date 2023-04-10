@@ -187,22 +187,24 @@ ggplot(data = data, aes(x = Occurrence_Hour)) +
 Observing this histogram, we can see that after midnight, there is a significant decrease in thefts.
 The theft occurrences spikes again after 7am before peaking at 6pm. This observation make sense as most citizens secure their bikes during nighttime, while incidents are more likely to occur during high traffic times in the morning and evening.
 \pagebreak
+For our next observation, let us create a shaded histogram to see if we can observe anything related to day of the year and bike thefts
+For this graph, we have decided to take the 2019-2021 as it is recent and having more year would overcrowd the graph.\
+\
+**Figure 5: Bike Thefts Count in 2019-2021 by day of year**
+```{r, message=F}
 
-The graph below shows the amount of bikes stolen in the first half of years 2019 and 2020.
-
-```{r}
-
-data2 = data %>% filter(Occurrence_Year %in% c(2019,2020,2021) & Report_DayOfYear<=182)
+data2 = data %>% filter(Occurrence_Year %in% c(2019,2020,2021))
 
 ggplot(data2, aes( x=Report_DayOfYear)) +
   geom_histogram(aes(fill=factor(Occurrence_Year)),alpha=0.5)+
-  labs(fill="Occurrence_Year") +
-  ggtitle("Bike Thefts in the first half of recent years")
+  labs(fill="Occurrence_Year") + 
+  labs(x = "Day of Year", y = "Counts")
+  #ggtitle("Bike Thefts in the first half of recent years")
 ```
+We can deduce that overall, bike thefts count start to spike starting day 100, which is roughly starting April. It peaks during day 200 or so, which is roughly the midst of summer. This observation makes sense as more people are likely to take out their bikes and bike during the warmer season compared to the winter.
+In addition, we see a decrease in bike thefts after 2019. This could be the reason to our downward trend in Figure 3, where the lower average prices is resulted by this decrease in theft count.
 
-We can deduce that a significantly higher number of bikes were stolen in the first half of 2019 than 2020.
-
-
+\pagebreak
 Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap confidence interval for the proportion of buildings not violating a code:
 
 ```{r}
