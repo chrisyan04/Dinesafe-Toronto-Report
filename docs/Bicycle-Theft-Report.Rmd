@@ -243,11 +243,6 @@ From the above table, we can notice that the most frequent type of bike stolen i
 ```
 
 
-Let's map out the occurences of such bike thefts onto a scatterplot to visualize the span of the thefts across Toronto.
-Steps:
-- first create a table that a column that represents the number of thefts in that neighborhood.
-- then with the columns we do case whens to filter the neighborhoods
-- then do the scatterplot
 ```{r}
 
 new_table <- table(data$NeighbourhoodName)
@@ -279,4 +274,9 @@ ggplot(grouped_data, aes(x = "", y = count, fill = nh_groups)) +
   theme(text = element_text(size = 12))
 
 ```
+Let's map out the occurences of such bike thefts onto a scatterplot to visualize the span of the thefts across Toronto.
 
+```{r}
+
+
+```
