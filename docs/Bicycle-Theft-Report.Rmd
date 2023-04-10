@@ -199,7 +199,3 @@ ggplot(data = data, aes(x = Occurrence_Hour)) +
 ```{r}
 #Aaron's Chunk 1
 ```
-
-```{r}
-#Aaron's chunk 2
-```
