@@ -190,20 +190,18 @@ ggplot(data = data, aes(x = Occurrence_Hour)) +
   labs(x = "Occurrence Hour", y = "Number of Thefts") +
   ggtitle("Number of Thefts During each Hour")
 ```
-
-
-newly added by armaan:
+\pagebreak
 
 The graph below shows the amount of bikes stolen in the first half of years 2019 and 2020.
 
 ```{r}
 
-data = origin %>% filter(Occurrence_Year %in% c(2019,2020) & Report_DayOfYear<=182)
+data2 = data %>% filter(Occurrence_Year %in% c(2019,2020,2021) & Report_DayOfYear<=182)
 
-ggplot(data, aes( x=Report_DayOfYear)) +
+ggplot(data2, aes( x=Report_DayOfYear)) +
   geom_histogram(aes(fill=factor(Occurrence_Year)),alpha=0.5)+
-  labs(fill="Occurrence_Year")
-
+  labs(fill="Occurrence_Year") +
+  ggtitle("Bike Thefts in the first half of recent years")
 ```
 
 We can deduce that a significantly higher number of bikes were stolen in the first half of 2019 than 2020.
@@ -214,7 +212,7 @@ Let's now take a sample of 1000 observations from the dataset and construct a 97
 ```{r}
 # Confidence interval - Armaan
 
-samp = origin %>% sample_n(1000)
+samp = data %>% sample_n(1000)
 
 prop.test(x = sum(samp$Occurrence_DayOfWeek == "Monday"), n = length(samp$Occurrence_DayOfWeek), conf.level = 0.97)
 
@@ -241,12 +239,12 @@ Now, let's create a summary table to find out the most frequent type of bike sto
 
 ```{r}
 
-data2 = origin %>%
+data3 = origin %>%
   filter(Occurrence_Year == 2013) %>%
   group_by(Occurrence_Year, Bike_Make, Bike_Colour) %>%
   summarise(total = sum(n=n())) %>%
   arrange(Occurrence_Year, total)
-as.data.frame(data2)
+as.data.frame(data3)
 ```
 
 From the above table, we can notice that the most frequent type of bike stolen in 2013 was a CCM with color blue.
