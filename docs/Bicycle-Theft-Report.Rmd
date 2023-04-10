@@ -26,6 +26,7 @@ library(osmdata)
 library(gganimate)
 library(scales)
 library(dplyr)
+library(stringr)
 ```
 
 ## Introduction
@@ -287,5 +288,15 @@ Let's map out the occurences of such bike thefts onto a scatterplot to visualize
 
 ```{r}
 
+data$longitude <- as.numeric(str_extract(data$geometry, "-?\\d+\\.\\d+"))
+data$latitude <- as.numeric(str_extract_all(data$geometry, "-?\\d+\\.\\d+")[[1]][2])
+
+data = data %>% mutate(cost_lost = case_when(Cost_of_Bike>=900~"high",
+                                     (Cost_of_Bike<900 & Cost_of_Bike>=600)~"mid",
+                                     TRUE ~"low"))
+ggplot(data, aes(y = latitude, x = longitude, fill = data$Cost_of_Bike)) +
+  geom_point(shape = 21, size = 2) +
+  scale_fill_gradient2(limits = c(0, max(data$Cost_of_Bike)), low = "red", mid = "yellow",
+                       high = "green", space = "Lab")
 
 ```
