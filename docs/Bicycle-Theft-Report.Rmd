@@ -206,7 +206,23 @@ We can deduce that overall, bike thefts count start to spike starting day 100, w
 In addition, we see a decrease in bike thefts after 2019. This could be the reason to our downward trend in Figure 3, where the lower average prices is resulted by this decrease in theft count.
 
 \pagebreak
-Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap confidence interval for the proportion of buildings not violating a code:
+It is also interesting for us to see what type of bike are the Toronto population riding. Let us create a summary table to find out what is the most popular bike colour and make in 2021.\
+\
+**Figure 6: Bike Make and Colour of stolen bikes in Toronto 2021**
+```{r, warning=F, message=F}
+
+data3 = data %>%
+  filter(Occurrence_Year == c(2021)) %>%
+  group_by(Occurrence_Year, Bike_Make, Bike_Colour) %>%
+  summarise(total = sum(n=n())) %>%
+  arrange(desc(total))
+as.data.frame(data3) %>% head(10)
+```
+
+From the above table, we can notice that the most frequent type of bike stolen in 2021 was a black model OT.
+We can also observe that, in general, Toronto prefer black bikes above the rest.\
+\pagebreak
+Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap proportion of bikes stolen on a Monday:
 
 ```{r}
 # Confidence interval - Armaan
@@ -232,25 +248,7 @@ quantile(replicate(1000, boot_function()), c(0.1, 0.9))
 ```
 
 From this, we know that ...
-
-
-Now, let's create a summary table to find out the most frequent type of bike stolen (Bike_Make and Bike_Colour) in 2013
-
-```{r}
-
-data3 = origin %>%
-  filter(Occurrence_Year == 2013) %>%
-  group_by(Occurrence_Year, Bike_Make, Bike_Colour) %>%
-  summarise(total = sum(n=n())) %>%
-  arrange(Occurrence_Year, total)
-as.data.frame(data3)
-```
-
-From the above table, we can notice that the most frequent type of bike stolen in 2013 was a CCM with color blue.
-
-```{r}
-#Aaron's Chunk 1
-```
+\pagebreak
 
 
 ```{r}
