@@ -220,8 +220,11 @@ as.data.frame(data3) %>% head(10)
 From the above table, we can notice that the most frequent type of bike stolen in 2021 was a black model OT.
 We can also observe that, in general, Toronto prefer black bikes above the rest.\
 \pagebreak
-
-```{r}
+We can identify whether a hood is in the East, West, North, Central or Downtown by looking at the HOOD_ID
+Let us create a graph of percentages.\
+\
+**Figure 7: Neighborhood Group Counts**
+```{r, warning=F, message=F}
 
 new_table <- table(data$NeighbourhoodName)
 # create data frame with neighborhood names and counts
@@ -252,10 +255,13 @@ ggplot(grouped_data, aes(x = "", y = count, fill = nh_groups)) +
   theme(text = element_text(size = 12))
 
 ```
+\
+As we can see, most bike thefts occurs at Downtown. We expected that result since downtown is the most busy place in Toronto.
 \pagebreak
 
-Let's map out the occurrences of such bike thefts onto a scatterplot to visualize the span of the thefts across Toronto.
-
+Let's map out the occurrences of such bike thefts onto a scatter plot to visualize the span of the thefts across Toronto.\
+\
+**Figure 8: Bike Stolen Locations in Toronto**
 ```{r}
 
 # Extracting longitude and latitude using regular expressions
@@ -280,7 +286,9 @@ ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
   ylab("Latitude")
 
 ```
-
+\
+Once again, we can see mass overlapping at downtown area.
+Also, note that due to the inability to access the google API, the map background is implemented by hand, therefore it was offset by a bit.
 \pagebreak
 Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap proportion of bikes stolen on a Monday:
 
