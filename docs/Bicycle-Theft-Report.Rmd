@@ -317,7 +317,29 @@ From this, we know that ...
 ```{r}
 #Linear Regression and Cross Validation part
 
+# Split data into training and testing sets
+set.seed(123)
+trainIndex <- createDataPartition(data$Cost_of_Bike, p = .7, list = FALSE)
+training <- data[trainIndex, ]
+testing <- data[-trainIndex, ]
 
+# Define linear regression model
+model <- lm(Cost_of_Bike ~ longitude + latitude, data = training)
+
+# Perform cross-validation
+set.seed(123)
+cv <- train(Cost_of_Bike ~ longitude + latitude, data = training, method = "lm", trControl = trainControl(method = "cv", number = 5))
+
+# Print cross-validation results
+print(cv)
+
+# Predict the test set using the cross-validated model
+predictions <- predict(cv, newdata = testing)
+
+# Evaluate performance using metrics such as mean squared error, mean absolute error, and R-squared value
+mse <- mean((predictions - testing$Cost_of_Bike) ^ 2)
+mae <- mean(abs(predictions - testing$Cost_of_Bike))
+r_squared <- cor(predictions, testing$Cost_of_Bike) ^ 2
 
 ```
 
