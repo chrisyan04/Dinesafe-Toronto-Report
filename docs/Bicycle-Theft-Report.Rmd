@@ -18,6 +18,7 @@ origin <- read.csv("bicycle.csv")
 ```{r, include=FALSE}
 # Initiating libraries
 library(tidyverse)
+library(tidyr)
 library(ggplot2)
 library(ggmap)
 library(png)
@@ -316,38 +317,32 @@ From this, we know that ...
 
 
 ```{r}
-#Linear Regression and Cross Validation part ii
-# Split data into training and testing sets
+#Linear Regression and Cross Validation part
+
+# Split the data into training and test sets
 set.seed(99)
-trainIndex <- createDataPartition(data$Cost_of_Bike, p = .7, list = FALSE)
-training <- data[trainIndex, ]
-testing <- data[-trainIndex, ]
+trainIndex <- createDataPartition(summary_table$Theft_Count, p = .8, list = FALSE)
+training <- summary_table[trainIndex,]
+testing <- summary_table[-trainIndex,]
 
-# Define linear regression model
-model <- lm(Cost_of_Bike ~ longitude + latitude, data = training)
-summary(model)
+# Fit a linear regression model to the training data
+lm_model <- lm(Theft_Count ~ Year, data = training)
 
-ggplot(data, aes(x = Occurrence_Year, y = Cost_of_Bike)) +
+# Print the summary of the model
+summary(lm_model)
+
+# Fit the linear regression model using 10-fold cross-validation
+ctrl <- trainControl(method = "cv", number = 10)
+lmFit <- train(Theft_Count ~ Year, data = training, method = "lm",
+               trainControl = ctrl)
+
+# Plot the results with the line of best fit
+ggplot(training, aes(x = Year, y = Theft_Count)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   labs(title = "Bike Theft in Toronto",
-       x = "Cost of Bike",
-       y = "Year of Bike Theft")
-
-# Perform cross-validation
-set.seed(99)
-cv <- train(Cost_of_Bike ~ longitude + latitude, data = training, method = "lm", trControl = trainControl(method = "cv", number = 5))
-
-# Print cross-validation results
-print(cv)
-
-# Predict the test set using the cross-validated model
-predictions <- predict(cv, newdata = testing)
-
-# Evaluate performance using metrics such as mean squared error, mean absolute error, and R-squared value
-mse <- mean((predictions - testing$Cost_of_Bike) ^ 2)
-mae <- mean(abs(predictions - testing$Cost_of_Bike))
-r_squared <- cor(predictions, testing$Cost_of_Bike) ^ 2
+       x = "Year of Bike Theft",
+       y = "Number of Bikes Stolen")
 
 ```
 
