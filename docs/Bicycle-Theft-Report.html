@@ -441,7 +441,7 @@ print(knit_table)</code></pre>
 data that has NA entries. In addition, let us print out a summary of
 crimes by year to see if there are any outliers.<br />
 <br />
-<strong>Figure 1: Total Number of Bike Thefts Each Year</strong></p>
+<strong>Table 2: Total Number of Bike Thefts Each Year</strong></p>
 <pre><code>## 
 ## 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 
 ##    1    2    3    2   28 2475 2611 3132 3253 3413 3115 3253 2591  886</code></pre>
@@ -449,7 +449,7 @@ crimes by year to see if there are any outliers.<br />
 the 2022 data is not complete. Let us filter them out and obtain a
 complete data, the one we will be using for our report below.<br />
 <br />
-<strong>Figure 2: Data After Filtering Incomplete Years</strong></p>
+<strong>Table 3: Data After Filtering Incomplete Years</strong></p>
 <pre class="r"><code>data = data %&gt;% filter(Occurrence_Year &gt;= 2014) %&gt;%
   filter(Occurrence_Year &lt; 2022)
 summary_table = data %&gt;% count(Occurrence_Year) %&gt;% 
@@ -468,7 +468,7 @@ print(summary_table)</code></pre>
 <p>For our first observation, let us use grouping, summarizing to create
 a simple plot<br />
 <br />
-<strong>Figure 3: Average Cost of Stolen Bikes by Occurrence
+<strong>Graph 1: Average Cost of Stolen Bikes by Occurrence
 Year</strong></p>
 <pre class="r"><code># Calculate average cost of bike by year
 avg_cost_by_year &lt;- data %&gt;%
@@ -488,7 +488,7 @@ quality stolen since the pandemic started. For our next observation, let
 us utilize the hour variable given to determine the high traffic time
 for bike thefts.<br />
 <br />
-<strong>Figure 4: Number of Thefts During each Hour</strong></p>
+<strong>Graph 2: Number of Thefts During each Hour</strong></p>
 <pre class="r"><code>ggplot(data = data, aes(x = Occurrence_Hour)) +
   geom_histogram(binwidth = 1, color = &quot;black&quot;, fill = &quot;lightblue&quot;) +
   labs(x = &quot;Occurrence Hour&quot;, y = &quot;Number of Thefts&quot;) </code></pre>
@@ -504,7 +504,7 @@ anything related to day of the year and bike thefts For this graph, we
 have decided to take the 2019-2021 as it is recent and having more year
 would overcrowd the graph.<br />
 <br />
-<strong>Figure 5: Bike Thefts Count in 2019-2021 by day of
+<strong>Graph 3: Bike Thefts Count in 2019-2021 by day of
 year</strong></p>
 <pre class="r"><code>data2 = data %&gt;% filter(Occurrence_Year %in% c(2019,2020,2021))
 
@@ -527,7 +527,7 @@ in theft count.</p>
 Toronto population riding. Let us create a summary table to find out
 what is the most popular bike colour and make in 2021.<br />
 <br />
-<strong>Figure 6: Bike Make and Colour of stolen bikes in Toronto
+<strong>Table 4: Bike Make and Colour of stolen bikes in Toronto
 2021</strong></p>
 <pre class="r"><code>data3 = data %&gt;%
   filter(Occurrence_Year == c(2021)) %&gt;%
@@ -553,7 +553,7 @@ We can identify whether a hood is in the East, West, North, Central or
 Downtown by looking at the HOOD_ID Let us create a graph of
 percentages.<br />
 <br />
-<strong>Figure 7: Neighborhood Group Counts</strong></p>
+<strong>Figure 1: Neighborhood Group Counts</strong></p>
 <pre class="r"><code>new_table &lt;- table(data$NeighbourhoodName)
 # create data frame with neighborhood names and counts
 new_df &lt;- data.frame(nh = names(new_table), count = as.vector(new_table), hood_id = unique(data$Hood_ID[match(names(new_table), data$NeighbourhoodName)]))
@@ -587,7 +587,7 @@ result since downtown is the most busy place in Toronto. </p>
 <p>Let’s map out the occurrences of such bike thefts onto a scatter plot
 to visualize the span of the thefts across Toronto.<br />
 <br />
-<strong>Figure 8: Bike Stolen Locations in Toronto</strong></p>
+<strong>Figure 2: Bike Stolen Locations in Toronto</strong></p>
 <pre class="r"><code># Extracting longitude and latitude using regular expressions
 data &lt;- data %&gt;%
   mutate(longitude = as.numeric(sub(&quot;.*\\((-?\\d+\\.\\d+),.*&quot;, &quot;\\1&quot;, geometry)),
@@ -623,13 +623,13 @@ prop.test(x = sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;), n = length(s
 ##  1-sample proportions test with continuity correction
 ## 
 ## data:  sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;) out of length(samp$Occurrence_DayOfWeek), null probability 0.5
-## X-squared = 480.25, df = 1, p-value &lt; 2.2e-16
+## X-squared = 603.73, df = 1, p-value &lt; 2.2e-16
 ## alternative hypothesis: true p is not equal to 0.5
 ## 97 percent confidence interval:
-##  0.1294621 0.1798564
+##  0.09078412 0.13494662
 ## sample estimates:
 ##     p 
-## 0.153</code></pre>
+## 0.111</code></pre>
 <pre class="r"><code>boot_function = function(){
   
   boot_data = samp  %&gt;% sample_n(nrow(samp), replace = T)
@@ -642,7 +642,7 @@ prop.test(x = sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;), n = length(s
 
 quantile(replicate(1000, boot_function()), c(0.1, 0.9))</code></pre>
 <pre><code>##   10%   90% 
-## 0.138 0.168</code></pre>
+## 0.099 0.124</code></pre>
 <p>From this, we know that … </p>
 <pre class="r"><code>#Linear Regression and Cross Validation part
 
