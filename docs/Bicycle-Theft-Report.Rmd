@@ -274,7 +274,7 @@ ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
   geom_point(alpha = 0.5) +
   scale_color_manual(values = c("low" = "red", "mid" = "yellow", "high" = "green"),
                      name = "Cost of Bike") +
-  ggtitle("Bike Lost Locations in Toronto") +
+  ggtitle("Bike Stolen Locations in Toronto") +
   xlab("Longitude") +
   ylab("Latitude")
 
@@ -305,6 +305,12 @@ quantile(replicate(1000, boot_function()), c(0.1, 0.9))
 From this, we know that ...
 \pagebreak
 
+```{r}
+#Linear Regression and Cross Validation part
+
+
+
+```
 
 
 
