@@ -277,6 +277,7 @@ ggplot(training, aes(x = Year, y = Theft_Count)) +
   geom_line(aes(x = Year, y = predicted), data = testing, color = "green")
 
 ```
-
+\
+In this code, we are analyzing bike theft data in Toronto using linear regression and cross-validation techniques. First, split data into training and testing sets. Then, fit a linear regression model to the training data and print the summary of the model. Next, use 10-fold cross-validation to fit the linear regression model to the training data. NOTE: the trainControl function is used to specify the type of cross-validation to be performed. Then predict the values for the training and test sets using the predict function and add them to the data frames training and testing, respectively. Finally, we create a scatterplot of the data and overlay the line of best fit for the training and testing data. Notice that they overlap, hence being a good predictive model. Overall, this code aims to understand the trend of bike theft over time in Toronto and to create a model that can predict the number of bike thefts based on the year. The linear regression model is validated using cross-validation, which helps to assess its accuracy and prevent overfitting.
 
 
