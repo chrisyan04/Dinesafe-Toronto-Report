@@ -183,7 +183,7 @@ ggplot(grouped_data, aes(x = "", y = count, fill = nh_groups)) +
 
 ```
 \
-As we can see, most bike thefts occurs at Downtown. We expected that result since downtown is the most busy place in Toronto.
+Notice from this pie chart graph that the majority of bike thefts occur downtown. These sections are divided by the different hood id's where we can see on the open Toronto website that each neighborhood is given an numerical id from 1 to 140. By separating into 5 sections we get different sections to analyze. The result is expected since downtown is the most busy place in Toronto and has a bigger concentration of bikers on a daily basis. 
 \
 
 Let's map out the occurrences of such bike thefts onto a scatter plot to visualize the span of the thefts across Toronto.\
