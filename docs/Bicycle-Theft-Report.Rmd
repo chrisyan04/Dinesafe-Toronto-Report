@@ -217,6 +217,7 @@ ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
 Once again, we can see mass overlapping at downtown area.
 Also, note that due to the inability to access the google API, the map background is implemented by hand, therefore it was offset by a bit.
 \
+
 Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap proportion of bikes stolen on a Monday:
 
 ```{r}
