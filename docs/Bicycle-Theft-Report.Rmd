@@ -72,7 +72,9 @@ print(summary)
 ```
 
 We can see that there are some outliers from 2009-2013. In addition, the 2022 data is not complete. Let us filter them out and obtain a complete data, the one we will be using for our report below.\
-\
+
+\newpage
+
 **Table 3: Data After Filtering Incomplete Years**
 ```{r,echo=F}
 data = data %>% filter(Occurrence_Year >= 2014) %>%
@@ -103,6 +105,9 @@ This could suggest a decrease in bike quality stolen since the pandemic started.
 \
 For our next observation, let us utilize the hour variable given to determine the high traffic time for bike thefts.\
 \
+
+\newpage
+
 **Graph 2: Number of Thefts During each Hour**
 ```{r,echo=F}
 ggplot(data = data, aes(x = Occurrence_Hour)) +
@@ -116,6 +121,9 @@ The theft occurrences spikes again after 7am before peaking at 6pm. This observa
 For our next observation, let us create a shaded histogram to see if we can observe anything related to day of the year and bike thefts
 For this graph, we have decided to take the 2019-2021 as it is recent and having more year would overcrowd the graph.\
 \
+
+\newpage
+
 **Graph 3: Bike Thefts Count in 2019-2021 by day of year**
 ```{r, message=F, echo=F}
 
@@ -187,6 +195,9 @@ Notice from this pie chart graph that the majority of bike thefts occur downtown
 
 Let's map out the occurrences of such bike thefts onto a scatter plot to visualize the span of the thefts across Toronto.\
 \
+
+\newpage
+
 **Figure 2: Bike Stolen Locations in Toronto**
 ```{r, echo=F}
 
@@ -329,6 +340,9 @@ ggplot(data2, aes( x=Report_DayOfYear)) +
   labs(x = "Day of Year", y = "Counts")
 ```
 \
+
+\newpage
+
 Table 4
 ```{r, echo=T,eval=FALSE}
 data3 = data %>%
@@ -364,6 +378,9 @@ ggplot(grouped_data, aes(x = "", y = count, fill = nh_groups)) +
   theme(text = element_text(size = 12))
 ```
 \
+
+\newpage
+
 Figure 2
 ```{r, echo=T,eval=FALSE}
 # Extracting longitude and latitude using regular expressions
@@ -398,6 +415,9 @@ boot_function = function(){
 quantile(replicate(1000, boot_function()), c(0.1, 0.9))
 ```
 \
+
+\newpage
+
 Linear Regression + Cross Validation
 ```{r, echo=T,eval=FALSE}
 set.seed(99)
