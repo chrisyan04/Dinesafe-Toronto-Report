@@ -27,6 +27,7 @@ library(gganimate)
 library(scales)
 library(dplyr)
 library(stringr)
+library(caret)
 ```
 
 ## Introduction
