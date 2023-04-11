@@ -238,7 +238,7 @@ quantile(replicate(1000, boot_function()), c(0.1, 0.9))
 
 ```
 
-From this, we know that ...
+From this, we know that the proportion of bikes stolen on a Monday in the sample of 1000 observations is estimated to be 0.146, with a 97% confidence interval of 0.1229641 to 0.1724226. Using bootstrapping, the 10th percentile and 90th percentile of the bootstrapped proportions of bikes stolen on a Monday are estimated to be 0.132 and 0.160, respectively. This means there is no explicit relationship between thefts occurring on Mondays implying thiefs don't specifically target Mondays to steal bikes.
 \
 
 
