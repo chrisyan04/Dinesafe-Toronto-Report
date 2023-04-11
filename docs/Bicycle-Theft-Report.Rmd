@@ -219,34 +219,6 @@ as.data.frame(data3) %>% head(10)
 From the above table, we can notice that the most frequent type of bike stolen in 2021 was a black model OT.
 We can also observe that, in general, Toronto prefer black bikes above the rest.\
 \pagebreak
-Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap proportion of bikes stolen on a Monday:
-
-```{r}
-# Confidence interval - Armaan
-
-samp = data %>% sample_n(1000)
-
-prop.test(x = sum(samp$Occurrence_DayOfWeek == "Monday"), n = length(samp$Occurrence_DayOfWeek), conf.level = 0.97)
-
-# Bootstrapping
-
-boot_function = function(){
-  
-  boot_data = samp  %>% sample_n(nrow(samp), replace = T)
-  
-  boot_prop = mean(boot_data$Occurrence_DayOfWeek == "Monday")
-  
-  return(boot_prop)
-  
-}
-
-quantile(replicate(1000, boot_function()), c(0.1, 0.9))
-
-```
-
-From this, we know that ...
-\pagebreak
-
 
 ```{r}
 
@@ -279,7 +251,9 @@ ggplot(grouped_data, aes(x = "", y = count, fill = nh_groups)) +
   theme(text = element_text(size = 12))
 
 ```
-Let's map out the occurences of such bike thefts onto a scatterplot to visualize the span of the thefts across Toronto.
+\pagebreak
+
+Let's map out the occurrences of such bike thefts onto a scatterplot to visualize the span of the thefts across Toronto.
 
 ```{r}
 
@@ -305,3 +279,36 @@ ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
   ylab("Latitude")
 
 ```
+
+\pagebreak
+Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap proportion of bikes stolen on a Monday:
+
+```{r}
+# Confidence interval - Armaan
+
+samp = data %>% sample_n(1000)
+
+prop.test(x = sum(samp$Occurrence_DayOfWeek == "Monday"), n = length(samp$Occurrence_DayOfWeek), conf.level = 0.97)
+
+# Bootstrapping
+
+boot_function = function(){
+  
+  boot_data = samp  %>% sample_n(nrow(samp), replace = T)
+  
+  boot_prop = mean(boot_data$Occurrence_DayOfWeek == "Monday")
+  
+  return(boot_prop)
+  
+}
+
+quantile(replicate(1000, boot_function()), c(0.1, 0.9))
+
+```
+
+From this, we know that ...
+\pagebreak
+
+
+
+
