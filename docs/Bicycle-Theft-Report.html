@@ -717,25 +717,21 @@ ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
 construct a 97% confidence interval for the proportion of bikes stolen
 on a Monday. Let’s also construct a 97% Bootstrap proportion of bikes
 stolen on a Monday:</p>
-<pre class="r"><code># Confidence interval - Armaan
-
-samp = data %&gt;% sample_n(1000)
+<pre class="r"><code>samp = data %&gt;% sample_n(1000)
 
 prop.test(x = sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;), n = length(samp$Occurrence_DayOfWeek), conf.level = 0.97)</code></pre>
 <pre><code>## 
 ##  1-sample proportions test with continuity correction
 ## 
 ## data:  sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;) out of length(samp$Occurrence_DayOfWeek), null probability 0.5
-## X-squared = 469.23, df = 1, p-value &lt; 2.2e-16
+## X-squared = 508.37, df = 1, p-value &lt; 2.2e-16
 ## alternative hypothesis: true p is not equal to 0.5
 ## 97 percent confidence interval:
-##  0.1331833 0.1840962
+##  0.1201849 0.1692311
 ## sample estimates:
 ##     p 
-## 0.157</code></pre>
-<pre class="r"><code># Bootstrapping
-
-boot_function = function(){
+## 0.143</code></pre>
+<pre class="r"><code>boot_function = function(){
   
   boot_data = samp  %&gt;% sample_n(nrow(samp), replace = T)
   
@@ -747,7 +743,7 @@ boot_function = function(){
 
 quantile(replicate(1000, boot_function()), c(0.1, 0.9))</code></pre>
 <pre><code>##   10%   90% 
-## 0.142 0.172</code></pre>
+## 0.129 0.158</code></pre>
 <p>From this, we know that … </p>
 </div>
 </div>

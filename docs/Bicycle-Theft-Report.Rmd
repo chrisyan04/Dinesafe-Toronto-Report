@@ -284,13 +284,9 @@ ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
 Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap proportion of bikes stolen on a Monday:
 
 ```{r}
-# Confidence interval - Armaan
-
 samp = data %>% sample_n(1000)
 
 prop.test(x = sum(samp$Occurrence_DayOfWeek == "Monday"), n = length(samp$Occurrence_DayOfWeek), conf.level = 0.97)
-
-# Bootstrapping
 
 boot_function = function(){
   
