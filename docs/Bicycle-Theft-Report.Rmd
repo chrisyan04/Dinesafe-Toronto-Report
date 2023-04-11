@@ -28,6 +28,7 @@ library(gganimate)
 library(scales)
 library(dplyr)
 library(stringr)
+library(knitr)
 library(caret)
 ```
 
@@ -42,96 +43,23 @@ The purpose of our report is to inform the public about the bike safety concerns
 
 ### Dataset Description
 
-* __entry id named X_id__
-  * unique entry id in increasing order
-  * _integer_
-* __event id named event_unique_id__
-  * unique event id not sorted
-  * _string_
-* __offense committed named Primary_Offense__
-  * type of crime that is committed
-  * _string_
-* __offense occurrence date named Occurrence_Date__
-  * date of when the crime was committed
-  * _string_
-* __offense occurrence year named Occurrence_Year__
-  * year of when the crime was committed
-  * _integer_
-* __offense occurrence month named Occurrence_Month__
-  * month of when the crime was committed
-  * _string_
-* __offense occurrence day of the week named Occurrence_DayOfWeek__
-  * what days of week was the crime committed (from Mon to Sun)
-  * _string_
-* __offense occurrence date of the month named Occurrence_DayOfMonth__
-  * what date of the month was the crime committed (from 1-31)
-  * _integer_
-* __offense occurrence day of the year named Occurrence_DayOfYear__
-  * what day of the year was the crime committed (from 1-365)
-  * _integer_
-* __offense occurrence hour named Occurrence_Hour__
-  * what hour of the day was the crime committed (from 1-24)
-  * _integer_
-* __offense report date named Report_Date__
-  * when the incident was reported to the authorities
-  * _string_
-* __offense report year named Report_Year__
-  * which year was the incident reported
-  * _integer_
-* __offense report month named Report_Month__
-  * which month was the incident reported
-  * _string_
-* __offense report day of the week named DayOfWeek__
-  * which day of week was the incident reported (Mon - Sun)
-  * _string_
-* __offense report day of the month named DayOfMonth__
-  * which day of the month was the incident reported (from 1-31)
-  * _integer_
-* __offense report day of the year named DayOfYear__
-  * which day of the year was the incident reported (from 1-365)
-  * _integer_
-* __offense report hour named Report_Hour__
-  * which hour of the day was the incident reported
-  * _integer_
-* __division where offense named Division__
-  * the division of the location, mostly used to identify the police service responsible
-  * _string_
-* __city where offense where offense took place named City__
-  * city name in or around Toronto
-  * _string_
-* __hood where offense took place named Hood_ID__
-  * the hood id for all Toronto's neighborhoods (out of 158)
-  * _string_
-* __neighborhood where offense took place named NeighbourhoodName__
-  * the neighborhood name in Toronto and surrounding areas
-  * _string_
-* __location where offense took place named Location_Type__
-  * broad description of the crime location.
-  * _string_
-* __location premise of where offense took place named Premise_Type__
-  * description of where bike was stolen
-  * _string_
-* __bike make of stolen bike named Bike_Make__
-  * brand of bike that was stolen.
-  * _string_
-* __bike model of stolen bike named Bike_Model__
-  * model of bike that was stolen.
-  * _string_
-* __bike type of stolen bike named Bike_Type__
-  * type of bike that was stolen
-  * _string_
-* __bike color of stolen bike named Bike_Colour__
-  * colour of the bike that was stolen.
-  * _string_
-* __cost of stolen bike named Cost_of_Bike__
-  * cost of bike that was stolen.
-  * _double_
-* __condition of stolen bike named Status__
-  * current condition of the bike (STOLEN, RECOVERED, or UNKNOWN)
-  * _string_
-* __coordinates of bike stolen named Geometry__
-  * precise location of the crime location
-  * _string_
+**Table 1: Dataset Observations, Data types, and Descriptions**
+```{r}
+Types = c(class(origin$X_id), class(origin$event_unique_id), class(origin$Primary_Offence), class(origin$Occurrence_Date), class(origin$Occurrence_Year), class(origin$Occurrence_Month), class(origin$Occurrence_DayOfWeek), class(origin$Occurrence_DayOfMonth), class(origin$Occurrence_DayOfYear), class(origin$Occurrence_Hour), class(origin$Report_Date), class(origin$Report_Year), class(origin$Report_Month), class(origin$Report_DayOfWeek), class(origin$Report_DayOfMonth), class(origin$Report_DayOfYear), class(origin$Report_Hour), class(origin$Division), class(origin$City), class(origin$Hood_ID), class(origin$NeighbourhoodName), class(origin$Location_Type), class(origin$Premises_Type), class(origin$Bike_Make), class(origin$Bike_Model), class(origin$Bike_Type), class(origin$Bike_Speed), class(origin$Bike_Colour), class(origin$Cost_of_Bike), class(origin$Status), class(origin$geometry))
+Variable = c(colnames(origin))
+
+Description = c("unique entry id order", "unique event id unsorted", "type of crime committed", "date of crime committed", "year of crime committed", "month of crime committed", "days of week crime (Mon-Sun)", "date of month crime (1-31)", "day of year crime (1-365)", "hour of day crime (1-24)", "incident reported to authorities", "year of incident reported", "month of incident reported", "day of week incident (Mon-Sun)", "day of month incident (1-31)", "day of year incident (1-365)", "hour of day incident", "division of location", "city name in Toronto", "hood id for neighborhoods (out of 158)", "neighborhood name in Toronto", "broad crime location", "description of bike theft location", "bike brand in theft", "bike model in theft", "type of bike stolen", "bike color in theft", "bike speed in theft", "bike cost in theft", "current bike status", "precise crime location")
+
+# Combine vectors into a data frame
+df <- data.frame(Variable = Variable, Types = Types, Description = Description)
+
+# Convert data frame to a knitr table
+knit_table <- knitr::kable(df, align = rep("l", ncol(df)))
+
+# Print the knitr table
+print(knit_table)
+
+```
 
 \pagebreak
 As with all the data, let us do a preliminary safety removal of any data that has NA entries.
