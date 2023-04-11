@@ -325,7 +325,7 @@ testing <- data[-trainIndex, ]
 
 # Define linear regression model
 model <- lm(Cost_of_Bike ~ longitude + latitude, data = training)
-
+summary(model)
 # Perform cross-validation
 set.seed(123)
 cv <- train(Cost_of_Bike ~ longitude + latitude, data = training, method = "lm", trControl = trainControl(method = "cv", number = 5))

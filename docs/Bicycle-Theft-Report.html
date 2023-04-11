@@ -733,13 +733,13 @@ prop.test(x = sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;), n = length(s
 ##  1-sample proportions test with continuity correction
 ## 
 ## data:  sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;) out of length(samp$Occurrence_DayOfWeek), null probability 0.5
-## X-squared = 567.01, df = 1, p-value &lt; 2.2e-16
+## X-squared = 491.4, df = 1, p-value &lt; 2.2e-16
 ## alternative hypothesis: true p is not equal to 0.5
 ## 97 percent confidence interval:
-##  0.1017533 0.1478589
+##  0.1257467 0.1756108
 ## sample estimates:
 ##     p 
-## 0.123</code></pre>
+## 0.149</code></pre>
 <pre class="r"><code>boot_function = function(){
   
   boot_data = samp  %&gt;% sample_n(nrow(samp), replace = T)
@@ -752,7 +752,7 @@ prop.test(x = sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;), n = length(s
 
 quantile(replicate(1000, boot_function()), c(0.1, 0.9))</code></pre>
 <pre><code>##   10%   90% 
-## 0.110 0.136</code></pre>
+## 0.134 0.164</code></pre>
 <p>From this, we know that … </p>
 <pre class="r"><code>#Linear Regression and Cross Validation part
 
@@ -764,8 +764,27 @@ testing &lt;- data[-trainIndex, ]
 
 # Define linear regression model
 model &lt;- lm(Cost_of_Bike ~ longitude + latitude, data = training)
-
-# Perform cross-validation
+summary(model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Cost_of_Bike ~ longitude + latitude, data = training)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##  -1042   -568   -307     78 119151 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 69403.28   25954.34   2.674   0.0075 ** 
+## longitude      72.32     225.47   0.321   0.7484    
+## latitude    -1436.29     344.41  -4.170 3.06e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1626 on 16530 degrees of freedom
+## Multiple R-squared:  0.001079,   Adjusted R-squared:  0.0009582 
+## F-statistic: 8.928 on 2 and 16530 DF,  p-value: 0.0001333</code></pre>
+<pre class="r"><code># Perform cross-validation
 set.seed(123)
 cv &lt;- train(Cost_of_Bike ~ longitude + latitude, data = training, method = &quot;lm&quot;, trControl = trainControl(method = &quot;cv&quot;, number = 5))
 
