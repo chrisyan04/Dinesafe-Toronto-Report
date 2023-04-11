@@ -275,7 +275,7 @@ ggplot(training, aes(x = Year, y = Theft_Count)) +
 
 ```
 \
-In this code, we are analyzing bike theft data in Toronto using linear regression and cross-validation techniques. First, split data into training and testing sets. Then, fit a linear regression model to the training data and print the summary of the model. Next, use 10-fold cross-validation to fit the linear regression model to the training data. NOTE: the trainControl function is used to specify the type of cross-validation to be performed. Then predict the values for the training and test sets using the predict function and add them to the data frames training and testing, respectively. Finally, we create a scatterplot of the data and overlay the line of best fit for the training and testing data. Notice that they overlap, hence being a good predictive model. Overall, this code aims to understand the trend of bike theft over time in Toronto and to create a model that can predict the number of bike thefts based on the year. The linear regression model is validated using cross-validation, which helps to assess its accuracy and prevent overfitting.
+In this code, we are analyzing bike theft data in Toronto using linear regression and cross-validation techniques. We created a scatterplot of the data and overlay the line of best fit for the training and testing data. Notice that they overlap, hence being a good predictive model. The linear regression model is validated using cross-validation, which helps us to assess its accuracy and prevent overfitting.
 
 ### Summary
 Upon analysis of our dataset producing intriguing results with regression analysis, graphs, tables, bootstrapping, etc., we show that for the past few years in Toronto, bike theft is seen to be most common during summertime afternoons and in particular downtown in location. In addition, our analysis shows that there is both a decrease in the cost of the bikes stolen and in occurrences of such theft in general since 2020, with the latest data recorded being 2021. Furthermore, from the description of the bikes, we notice that the most common bike stolen in Toronto came to be a black OT bike model. Our purpose, as stated at the beginning of our report, includes the intent to inform the public of bike safety concerns in Toronto and surrounding areas. From our produced results we see that certain areas have higher probability of bike thefts to occur than others. Downtown Toronto, as seen in our scatterplot graph of the occurrences of bike theft in the area, shows that it is a place where the public should be extra wary of their bikes' safety. Our findings hope to inform the public and also help the Toronto Police and government in enacting commitment to help solve such problems, as the number of stolen bikes every year, despite decreasing, is still not a small number.
@@ -286,7 +286,6 @@ Upon analysis of our dataset producing intriguing results with regression analys
 
 Table 2
 ```{r, echo=T,eval=FALSE}
-#omit all the entries that has NA inputs, they won't be helpful to our data
 data <- na.omit(origin)
 summary <- table(data$Occurrence_Year)
 print(summary)
@@ -355,7 +354,6 @@ grouped_data <- new_df %>%
   group_by(nh_groups) %>% 
   summarize(count = sum(count)) %>%
   mutate(percentage = percent(count / sum(count)))
-# create a pie chart
 ggplot(grouped_data, aes(x = "", y = count, fill = nh_groups)) +
   geom_col(width = 1) +
   coord_polar(theta = "y") +
@@ -378,7 +376,6 @@ data <- data %>%
                                (Cost_of_Bike<600 & Cost_of_Bike>=400)~"mid",
                                TRUE ~"low"))
 img <- readPNG("toronto2.png")
-# Plot the data
 ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
   background_image(img) +
   geom_point(alpha = 0.5) +
@@ -403,15 +400,12 @@ quantile(replicate(1000, boot_function()), c(0.1, 0.9))
 \
 Linear Regression + Cross Validation
 ```{r, echo=T,eval=FALSE}
-#Linear Regression and Cross Validation part
-# Split the data into training and test sets
 set.seed(99)
 trainIndex <- createDataPartition(summary_table$Theft_Count, p = .8, list = FALSE)
 training <- summary_table[trainIndex,]
 testing <- summary_table[-trainIndex,]
 # Fit a linear regression model to the training data
 lm_model <- lm(Theft_Count ~ Year, data = training)
-# Print the summary of the model
 summary(lm_model)
 # Fit the linear regression model using 10-fold cross-validation
 ctrl <- trainControl(method = "cv", number = 10)
