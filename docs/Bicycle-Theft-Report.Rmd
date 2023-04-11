@@ -118,9 +118,6 @@ The purpose of our report is to inform the public about the bike safety concerns
 * __bike type of stolen bike named Bike_Type__
   * type of bike that was stolen
   * _string_
-* __bike speed of stolen bike named Bike_Speed__
-  * the assumed speed of the bike
-  * _integer_
 * __bike color of stolen bike named Bike_Colour__
   * colour of the bike that was stolen.
   * _string_
@@ -286,15 +283,20 @@ Let's map out the occurences of such bike thefts onto a scatterplot to visualize
 
 ```{r}
 
-data$longitude <- as.numeric(str_extract(data$geometry, "-?\\d+\\.\\d+"))
-data$latitude <- as.numeric(str_extract_all(data$geometry, "-?\\d+\\.\\d+")[[1]][2])
+# Extracting longitude and latitude using regular expressions
+data <- data %>%
+  mutate(longitude = as.numeric(sub(".*\\((-?\\d+\\.\\d+),.*", "\\1", geometry)),
+         latitude = as.numeric(sub(".*,(\\s?-?\\d+\\.\\d+)\\)}", "\\1", geometry))) %>%
+  filter(longitude != 0 & latitude != 0 &
+         longitude > -79.7 & longitude < -79.1) %>%
+  mutate(cost_lost = case_when(Cost_of_Bike>=600~"high",
+                               (Cost_of_Bike<600 & Cost_of_Bike>=400)~"mid",
+                               TRUE ~"low"))
 
-data = data %>% mutate(cost_lost = case_when(Cost_of_Bike>=900~"high",
-                                     (Cost_of_Bike<900 & Cost_of_Bike>=600)~"mid",
-                                     TRUE ~"low"))
-ggplot(data, aes(y = latitude, x = longitude, fill = data$Cost_of_Bike)) +
-  geom_point(shape = 21, size = 2) +
-  scale_fill_gradient2(limits = c(0, max(data$Cost_of_Bike)), low = "red", mid = "yellow",
-                       high = "green", space = "Lab")
+# Plot the data
+ggplot(data,aes(y=latitude,x=longitude,color=Cost_of_Bike))+
+  geom_point(alpha=0.5)+
+  scale_color_gradient2(low = "red", mid = "yellow",
+                        high = "green", space = "Lab")
 
 ```
