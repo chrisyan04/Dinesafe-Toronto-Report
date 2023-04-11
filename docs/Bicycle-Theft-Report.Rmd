@@ -43,7 +43,7 @@ The purpose of our report is to inform the public about the bike safety concerns
 ### Dataset Description
 
 **Table 1: Dataset Observations, Data types, and Descriptions**
-```{r}
+```{r, echo=F, eval=T}
 Types = c(class(origin$X_id), class(origin$event_unique_id), class(origin$Primary_Offence), class(origin$Occurrence_Date), class(origin$Occurrence_Year), class(origin$Occurrence_Month), class(origin$Occurrence_DayOfWeek), class(origin$Occurrence_DayOfMonth), class(origin$Occurrence_DayOfYear), class(origin$Occurrence_Hour), class(origin$Report_Date), class(origin$Report_Year), class(origin$Report_Month), class(origin$Report_DayOfWeek), class(origin$Report_DayOfMonth), class(origin$Report_DayOfYear), class(origin$Report_Hour), class(origin$Division), class(origin$City), class(origin$Hood_ID), class(origin$NeighbourhoodName), class(origin$Location_Type), class(origin$Premises_Type), class(origin$Bike_Make), class(origin$Bike_Model), class(origin$Bike_Type), class(origin$Bike_Speed), class(origin$Bike_Colour), class(origin$Cost_of_Bike), class(origin$Status), class(origin$geometry))
 Variable = c(colnames(origin))
 
@@ -74,7 +74,7 @@ print(summary)
 We can see that there are some outliers from 2009-2013. In addition, the 2022 data is not complete. Let us filter them out and obtain a complete data, the one we will be using for our report below.\
 \
 **Table 3: Data After Filtering Incomplete Years**
-```{r}
+```{r,echo=F}
 data = data %>% filter(Occurrence_Year >= 2014) %>%
   filter(Occurrence_Year < 2022)
 summary_table = data %>% count(Occurrence_Year) %>% 
@@ -85,7 +85,7 @@ print(summary_table)
 For our first observation, let us use grouping, summarizing to create a simple plot\
 \
 **Graph 1: Average Cost of Stolen Bikes by Occurrence Year**
-```{r}
+```{r,echo=F}
 # Calculate average cost of bike by year
 avg_cost_by_year <- data %>%
   group_by(Occurrence_Year) %>%
@@ -96,20 +96,20 @@ ggplot(avg_cost_by_year, aes(x = Occurrence_Year, y = avg_cost)) +
   geom_line(color = "blue") +
   geom_point(color = "blue") +
   labs(x = "Occurrence Year", y = "Average Cost of Bike")
-  #ggtitle("Average Cost of Stolen Bikes by Occurrence Year")
 ```
+\
 From the graph, we can observe that there was a upward trend of the bike pricing until the 2020.
 This could suggest a decrease in bike quality stolen since the pandemic started.
 \
 For our next observation, let us utilize the hour variable given to determine the high traffic time for bike thefts.\
 \
 **Graph 2: Number of Thefts During each Hour**
-```{r}
+```{r,echo=F}
 ggplot(data = data, aes(x = Occurrence_Hour)) +
   geom_histogram(binwidth = 1, color = "black", fill = "lightblue") +
   labs(x = "Occurrence Hour", y = "Number of Thefts") 
-  #ggtitle("Number of Thefts During each Hour")
 ```
+\
 Observing this histogram, we can see that after midnight, there is a significant decrease in thefts.
 The theft occurrences spikes again after 7am before peaking at 6pm. This observation make sense as most citizens secure their bikes during nighttime, while incidents are more likely to occur during high traffic times in the morning and evening.
 \
@@ -117,7 +117,7 @@ For our next observation, let us create a shaded histogram to see if we can obse
 For this graph, we have decided to take the 2019-2021 as it is recent and having more year would overcrowd the graph.\
 \
 **Graph 3: Bike Thefts Count in 2019-2021 by day of year**
-```{r, message=F}
+```{r, message=F, echo=F}
 
 data2 = data %>% filter(Occurrence_Year %in% c(2019,2020,2021))
 
@@ -125,8 +125,8 @@ ggplot(data2, aes( x=Report_DayOfYear)) +
   geom_histogram(aes(fill=factor(Occurrence_Year)),alpha=0.5)+
   labs(fill="Occurrence_Year") + 
   labs(x = "Day of Year", y = "Counts")
-  #ggtitle("Bike Thefts in the first half of recent years")
 ```
+\
 We can deduce that overall, bike thefts count start to spike starting day 100, which is roughly starting April. It peaks during day 200 or so, which is roughly the midst of summer. This observation makes sense as more people are likely to take out their bikes and bike during the warmer season compared to the winter.
 In addition, we see a decrease in bike thefts after 2019. This could be the reason to our downward trend in Figure 3, where the lower average prices is resulted by this decrease in theft count.
 
@@ -134,7 +134,7 @@ In addition, we see a decrease in bike thefts after 2019. This could be the reas
 It is also interesting for us to see what type of bike are the Toronto population riding. Let us create a summary table to find out what is the most popular bike colour and make in 2021.\
 \
 **Table 4: Bike Make and Colour of stolen bikes in Toronto 2021**
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, echo=F}
 
 data3 = data %>%
   filter(Occurrence_Year == c(2021)) %>%
@@ -151,7 +151,7 @@ We can identify whether a hood is in the East, West, North, Central or Downtown 
 Let us create a graph of percentages.\
 \
 **Figure 1: Neighborhood Group Counts**
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, echo=F}
 
 new_table <- table(data$NeighbourhoodName)
 # create data frame with neighborhood names and counts
@@ -175,7 +175,6 @@ ggplot(grouped_data, aes(x = "", y = count, fill = nh_groups)) +
   geom_col(width = 1) +
   coord_polar(theta = "y") +
   labs(fill = "Neighborhood Groups") +
-  ggtitle("Neighborhood Group Counts") +
   geom_text(aes(label = percentage), position = position_stack(vjust = 0.5)) +
   scale_y_continuous(labels = percent_format()) +
   theme_void() +
@@ -189,7 +188,7 @@ Notice from this pie chart graph that the majority of bike thefts occur downtown
 Let's map out the occurrences of such bike thefts onto a scatter plot to visualize the span of the thefts across Toronto.\
 \
 **Figure 2: Bike Stolen Locations in Toronto**
-```{r}
+```{r, echo=F}
 
 # Extracting longitude and latitude using regular expressions
 data <- data %>%
@@ -211,7 +210,6 @@ ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
   ggtitle("Bike Stolen Locations in Toronto") +
   xlab("Longitude") +
   ylab("Latitude")
-
 ```
 \
 Once again, we can see mass overlapping at downtown area.
@@ -219,7 +217,7 @@ Also, note that due to the inability to access the google API, the map backgroun
 \
 Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap proportion of bikes stolen on a Monday:
 
-```{r}
+```{r, echo=F}
 samp = data %>% sample_n(1000)
 
 prop.test(x = sum(samp$Occurrence_DayOfWeek == "Monday"), n = length(samp$Occurrence_DayOfWeek), conf.level = 0.97)
@@ -235,14 +233,12 @@ boot_function = function(){
 }
 
 quantile(replicate(1000, boot_function()), c(0.1, 0.9))
-
 ```
 
 From this, we know that the proportion of bikes stolen on a Monday in the sample of 1000 observations is estimated to be 0.146, with a 97% confidence interval of 0.1229641 to 0.1724226. Using bootstrapping, the 10th percentile and 90th percentile of the bootstrapped proportions of bikes stolen on a Monday are estimated to be 0.132 and 0.160, respectively. This means there is no explicit relationship between thefts occurring on Mondays implying thiefs don't specifically target Mondays to steal bikes.
 \
 
-
-```{r, warnings=FALSE, message=FALSE}
+```{r, warnings=FALSE, message=FALSE, echo=F}
 #Linear Regression and Cross Validation part
 
 # Split the data into training and test sets
@@ -280,4 +276,156 @@ ggplot(training, aes(x = Year, y = Theft_Count)) +
 \
 In this code, we are analyzing bike theft data in Toronto using linear regression and cross-validation techniques. First, split data into training and testing sets. Then, fit a linear regression model to the training data and print the summary of the model. Next, use 10-fold cross-validation to fit the linear regression model to the training data. NOTE: the trainControl function is used to specify the type of cross-validation to be performed. Then predict the values for the training and test sets using the predict function and add them to the data frames training and testing, respectively. Finally, we create a scatterplot of the data and overlay the line of best fit for the training and testing data. Notice that they overlap, hence being a good predictive model. Overall, this code aims to understand the trend of bike theft over time in Toronto and to create a model that can predict the number of bike thefts based on the year. The linear regression model is validated using cross-validation, which helps to assess its accuracy and prevent overfitting.
 
+### Summary
+Upon analysis of our dataset producing intriguing results with regression analysis, graphs, tables, bootstrapping, etc., we show that for the past few years in Toronto, bike theft is seen to be most common during summertime afternoons and in particular downtown in location. In addition, our analysis shows that there is both a decrease in the cost of the bikes stolen and in occurrences of such theft in general since 2020, with the latest data recorded being 2021. Furthermore, from the description of the bikes, we notice that the most common bike stolen in Toronto came to be a black OT bike model. Our purpose, as stated at the beginning of our report, includes the intent to inform the public of bike safety concerns in Toronto and surrounding areas. From our produced results we see that certain areas have higher probability of bike thefts to occur than others. Downtown Toronto, as seen in our scatterplot graph of the occurrences of bike theft in the area, shows that it is a place where the public should be extra wary of their bikes' safety. Our findings hope to inform the public and also help the Toronto Police and government in enacting commitment to help solve such problems, as the number of stolen bikes every year, despite decreasing, is still not a small number.
 
+\pagebreak
+
+### Appendix
+
+Table 2
+```{r, echo=T,eval=FALSE}
+#omit all the entries that has NA inputs, they won't be helpful to our data
+data <- na.omit(origin)
+summary <- table(data$Occurrence_Year)
+print(summary)
+```
+\
+Table 3
+```{r, echo=T,eval=FALSE}
+data = data %>% filter(Occurrence_Year >= 2014) %>%
+  filter(Occurrence_Year < 2022)
+summary_table = data %>% count(Occurrence_Year) %>% 
+  rename(Year = Occurrence_Year, Theft_Count = n)
+print(summary_table)
+```
+\
+Graph 1
+```{r, echo=T,eval=FALSE}
+# Calculate average cost of bike by year
+avg_cost_by_year <- data %>%
+  group_by(Occurrence_Year) %>%
+  summarize(avg_cost = mean(Cost_of_Bike))
+# Create plot of average cost of bike by year
+ggplot(avg_cost_by_year, aes(x = Occurrence_Year, y = avg_cost)) +
+  geom_line(color = "blue") +
+  geom_point(color = "blue") +
+  labs(x = "Occurrence Year", y = "Average Cost of Bike")
+```
+\
+Graph 2
+```{r, echo=T,eval=FALSE}
+ggplot(data = data, aes(x = Occurrence_Hour)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "lightblue") +
+  labs(x = "Occurrence Hour", y = "Number of Thefts") 
+```
+\
+Graph 3
+```{r, echo=T,eval=FALSE}
+data2 = data %>% filter(Occurrence_Year %in% c(2019,2020,2021))
+ggplot(data2, aes( x=Report_DayOfYear)) +
+  geom_histogram(aes(fill=factor(Occurrence_Year)),alpha=0.5)+
+  labs(fill="Occurrence_Year") + 
+  labs(x = "Day of Year", y = "Counts")
+```
+\
+Table 4
+```{r, echo=T,eval=FALSE}
+data3 = data %>%
+  filter(Occurrence_Year == c(2021)) %>%
+  group_by(Occurrence_Year, Bike_Make, Bike_Colour) %>%
+  summarise(total = sum(n=n())) %>%
+  arrange(desc(total))
+as.data.frame(data3) %>% head(10)
+```
+\
+Figure 1
+```{r, echo=T,eval=FALSE}
+new_table <- table(data$NeighbourhoodName)
+# create data frame with neighborhood names and counts
+new_df <- data.frame(nh = names(new_table), count = as.vector(new_table), hood_id = unique(data$Hood_ID[match(names(new_table), data$NeighbourhoodName)]))
+new_df$hood_id <- as.numeric(new_df$hood_id)
+new_df <- new_df %>% mutate(nh_groups = case_when(new_df$hood_id >= 112 ~ 'East',
+                                                  (new_df$hood_id<112 & new_df$hood_id>=84) ~ 'Central',
+                                                  (new_df$hood_id<84 & new_df$hood_id>=56)~'Downtown',
+                                                  (new_df$hood_id<56 & new_df$hood_id>=28)~'North',
+                                                  TRUE~'West'))
+grouped_data <- new_df %>% 
+  group_by(nh_groups) %>% 
+  summarize(count = sum(count)) %>%
+  mutate(percentage = percent(count / sum(count)))
+# create a pie chart
+ggplot(grouped_data, aes(x = "", y = count, fill = nh_groups)) +
+  geom_col(width = 1) +
+  coord_polar(theta = "y") +
+  labs(fill = "Neighborhood Groups") +
+  geom_text(aes(label = percentage), position = position_stack(vjust = 0.5)) +
+  scale_y_continuous(labels = percent_format()) +
+  theme_void() +
+  theme(text = element_text(size = 12))
+```
+\
+Figure 2
+```{r, echo=T,eval=FALSE}
+# Extracting longitude and latitude using regular expressions
+data <- data %>%
+  mutate(longitude = as.numeric(sub(".*\\((-?\\d+\\.\\d+),.*", "\\1", geometry)),
+         latitude = as.numeric(sub(".*,(\\s?-?\\d+\\.\\d+)\\)}", "\\1", geometry))) %>%
+  filter(longitude != 0 & latitude != 0 &
+         longitude > -79.7 & longitude < -79.1) %>%
+  mutate(cost_lost = case_when(Cost_of_Bike>=600~"high",
+                               (Cost_of_Bike<600 & Cost_of_Bike>=400)~"mid",
+                               TRUE ~"low"))
+img <- readPNG("toronto2.png")
+# Plot the data
+ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
+  background_image(img) +
+  geom_point(alpha = 0.5) +
+  scale_color_manual(values = c("low" = "red", "mid" = "yellow", "high" = "green"),
+                     name = "Cost of Bike") +
+  ggtitle("Bike Stolen Locations in Toronto") +
+  xlab("Longitude") +
+  ylab("Latitude")
+```
+\
+Confidence Interval + Bootstrapping
+```{r, echo=T,eval=FALSE}
+samp = data %>% sample_n(1000)
+prop.test(x = sum(samp$Occurrence_DayOfWeek == "Monday"), n = length(samp$Occurrence_DayOfWeek), conf.level = 0.97)
+boot_function = function(){
+  boot_data = samp  %>% sample_n(nrow(samp), replace = T)
+  boot_prop = mean(boot_data$Occurrence_DayOfWeek == "Monday")
+  return(boot_prop)
+}
+quantile(replicate(1000, boot_function()), c(0.1, 0.9))
+```
+\
+Linear Regression + Cross Validation
+```{r, echo=T,eval=FALSE}
+#Linear Regression and Cross Validation part
+# Split the data into training and test sets
+set.seed(99)
+trainIndex <- createDataPartition(summary_table$Theft_Count, p = .8, list = FALSE)
+training <- summary_table[trainIndex,]
+testing <- summary_table[-trainIndex,]
+# Fit a linear regression model to the training data
+lm_model <- lm(Theft_Count ~ Year, data = training)
+# Print the summary of the model
+summary(lm_model)
+# Fit the linear regression model using 10-fold cross-validation
+ctrl <- trainControl(method = "cv", number = 10)
+lmFit <- train(Theft_Count ~ Year, data = training, method = "lm",
+               trControl = ctrl)
+# Predict values for the training and test sets
+training$predicted <- predict(lm_model, newdata = training)
+testing$predicted <- predict(lm_model, newdata = testing)
+# Plot the results with the line of best fit
+ggplot(training, aes(x = Year, y = Theft_Count)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red", alpha=0.1) +
+  labs(title = "Bike Theft in Toronto",
+       x = "Year of Bike Theft",
+       y = "Number of Bikes Stolen") +
+  geom_line(aes(x = Year, y = predicted), data = training, color = "blue") +
+  geom_line(aes(x = Year, y = predicted), data = testing, color = "green")
+```
