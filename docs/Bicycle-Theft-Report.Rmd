@@ -293,10 +293,15 @@ data <- data %>%
                                (Cost_of_Bike<600 & Cost_of_Bike>=400)~"mid",
                                TRUE ~"low"))
 
+img <- readPNG("toronto2.png")
 # Plot the data
-ggplot(data,aes(y=latitude,x=longitude,color=Cost_of_Bike))+
-  geom_point(alpha=0.5)+
-  scale_color_gradient2(low = "red", mid = "yellow",
-                        high = "green", space = "Lab")
+ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
+  background_image(img) +
+  geom_point(alpha = 0.5) +
+  scale_color_manual(values = c("low" = "red", "mid" = "yellow", "high" = "green"),
+                     name = "Cost of Bike") +
+  ggtitle("Bike Lost Locations in Toronto") +
+  xlab("Longitude") +
+  ylab("Latitude")
 
 ```
