@@ -6,7 +6,7 @@ date: "2023-04-07"
 output: html_document
 ---
 
-```{r setup, include=FALSE, warnings=FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -244,7 +244,7 @@ From this, we know that ...
 \pagebreak
 
 
-```{r}
+```{r, warnings=FALSE}
 #Linear Regression and Cross Validation part
 
 # Split the data into training and test sets

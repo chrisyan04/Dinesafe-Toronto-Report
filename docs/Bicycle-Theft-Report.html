@@ -623,13 +623,13 @@ prop.test(x = sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;), n = length(s
 ##  1-sample proportions test with continuity correction
 ## 
 ## data:  sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;) out of length(samp$Occurrence_DayOfWeek), null probability 0.5
-## X-squared = 485.81, df = 1, p-value &lt; 2.2e-16
+## X-squared = 540.23, df = 1, p-value &lt; 2.2e-16
 ## alternative hypothesis: true p is not equal to 0.5
 ## 97 percent confidence interval:
-##  0.1276036 0.1777343
+##  0.1100259 0.1574977
 ## sample estimates:
 ##     p 
-## 0.151</code></pre>
+## 0.132</code></pre>
 <pre class="r"><code>boot_function = function(){
   
   boot_data = samp  %&gt;% sample_n(nrow(samp), replace = T)
@@ -641,8 +641,8 @@ prop.test(x = sum(samp$Occurrence_DayOfWeek == &quot;Monday&quot;), n = length(s
 }
 
 quantile(replicate(1000, boot_function()), c(0.1, 0.9))</code></pre>
-<pre><code>##   10%   90% 
-## 0.137 0.166</code></pre>
+<pre><code>##    10%    90% 
+## 0.1180 0.1461</code></pre>
 <p>From this, we know that … </p>
 <pre class="r"><code>#Linear Regression and Cross Validation part
 
