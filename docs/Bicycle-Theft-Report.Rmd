@@ -38,8 +38,7 @@ library(caret)
 \
 
 ### Purpose
-The purpose of our report is to inform the public about the bike safety concerns in Toronto and its surrounding areas with regards to the precedence of stolen bikes in certain areas. We want to make it known in our report that the public should avoid parking bikes in hot-spots where bikes are often stolen. A map of the density of the stolen bike occurrences will show the precise locations where one should avoid leaving their bike. With our research we hope to provide a thorough investigation into these hot-spots and also provide such information of stolen bike occurrences to the Toronto Police.
-\pagebreak
+The purpose of our report is to inform the public about the bike safety concerns in Toronto and its surrounding areas with regards to the precedence of stolen bikes in certain areas. We want to make it known in our report that the public should avoid parking bikes in hot-spots where bikes are often stolen. A map of the density of the stolen bike occurrences will show the precise locations where one should avoid leaving their bike. With our research we hope to provide a thorough investigation into these hot-spots and also provide such information of stolen bike occurrences to the Toronto Police.\
 
 ### Dataset Description
 
@@ -60,8 +59,7 @@ knit_table <- knitr::kable(df, align = rep("l", ncol(df)))
 print(knit_table)
 
 ```
-
-\pagebreak
+\
 As with all the data, let us do a preliminary safety removal of any data that has NA entries.
 In addition, let us print out a summary of crimes by year to see if there are any outliers.\
 \
@@ -83,7 +81,7 @@ summary_table = data %>% count(Occurrence_Year) %>%
   rename(Year = Occurrence_Year, Theft_Count = n)
 print(summary_table)
 ```
-\newpage
+\
 For our first observation, let us use grouping, summarizing to create a simple plot\
 \
 **Graph 1: Average Cost of Stolen Bikes by Occurrence Year**
@@ -102,7 +100,7 @@ ggplot(avg_cost_by_year, aes(x = Occurrence_Year, y = avg_cost)) +
 ```
 From the graph, we can observe that there was a upward trend of the bike pricing until the 2020.
 This could suggest a decrease in bike quality stolen since the pandemic started.
-\newpage
+\
 For our next observation, let us utilize the hour variable given to determine the high traffic time for bike thefts.\
 \
 **Graph 2: Number of Thefts During each Hour**
@@ -114,7 +112,7 @@ ggplot(data = data, aes(x = Occurrence_Hour)) +
 ```
 Observing this histogram, we can see that after midnight, there is a significant decrease in thefts.
 The theft occurrences spikes again after 7am before peaking at 6pm. This observation make sense as most citizens secure their bikes during nighttime, while incidents are more likely to occur during high traffic times in the morning and evening.
-\pagebreak
+\
 For our next observation, let us create a shaded histogram to see if we can observe anything related to day of the year and bike thefts
 For this graph, we have decided to take the 2019-2021 as it is recent and having more year would overcrowd the graph.\
 \
@@ -132,7 +130,7 @@ ggplot(data2, aes( x=Report_DayOfYear)) +
 We can deduce that overall, bike thefts count start to spike starting day 100, which is roughly starting April. It peaks during day 200 or so, which is roughly the midst of summer. This observation makes sense as more people are likely to take out their bikes and bike during the warmer season compared to the winter.
 In addition, we see a decrease in bike thefts after 2019. This could be the reason to our downward trend in Figure 3, where the lower average prices is resulted by this decrease in theft count.
 
-\pagebreak
+\
 It is also interesting for us to see what type of bike are the Toronto population riding. Let us create a summary table to find out what is the most popular bike colour and make in 2021.\
 \
 **Table 4: Bike Make and Colour of stolen bikes in Toronto 2021**
@@ -148,7 +146,7 @@ as.data.frame(data3) %>% head(10)
 
 From the above table, we can notice that the most frequent type of bike stolen in 2021 was a black model OT.
 We can also observe that, in general, Toronto prefer black bikes above the rest.\
-\pagebreak
+\
 We can identify whether a hood is in the East, West, North, Central or Downtown by looking at the HOOD_ID
 Let us create a graph of percentages.\
 \
@@ -186,7 +184,7 @@ ggplot(grouped_data, aes(x = "", y = count, fill = nh_groups)) +
 ```
 \
 As we can see, most bike thefts occurs at Downtown. We expected that result since downtown is the most busy place in Toronto.
-\pagebreak
+\
 
 Let's map out the occurrences of such bike thefts onto a scatter plot to visualize the span of the thefts across Toronto.\
 \
@@ -218,7 +216,7 @@ ggplot(data, aes(x = longitude, y = latitude, color = cost_lost)) +
 \
 Once again, we can see mass overlapping at downtown area.
 Also, note that due to the inability to access the google API, the map background is implemented by hand, therefore it was offset by a bit.
-\pagebreak
+\
 Let's now take a sample of 1000 observations from the dataset and construct a 97% confidence interval for the proportion of bikes stolen on a Monday. Let's also construct a 97% Bootstrap proportion of bikes stolen on a Monday:
 
 ```{r}
@@ -241,7 +239,7 @@ quantile(replicate(1000, boot_function()), c(0.1, 0.9))
 ```
 
 From this, we know that ...
-\pagebreak
+\
 
 
 ```{r, warnings=FALSE, message=FALSE}
