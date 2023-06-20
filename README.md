@@ -1,5 +1,5 @@
 # Toronto Bike Theft Report 🚲🌆
-Check it out: ![](./docs/Bicycle Theft Report.pdf)
+Check it out: ![](./docs/Bicycle-Theft-Report.pdf)
 ## Introduction 📚
 This report concerns with the data “Bicycle Thefts Open Data” which contains occurrences related to bicycle thefts reported to the Toronto Police Service. These occurrences are related to a variety of offences where the theft of a bicycle was included. We obtained this dataset from the City of Toronto Open Data portal. It records all of the bike thefts in Toronto starting from as early as 2013. The dataset is published by the Toronto Police services and is refreshed annually all the way up until 2022. The dataset contains large amount of entries and multiple information variables.
 
